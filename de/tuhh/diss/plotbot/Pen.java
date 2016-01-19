@@ -1,33 +1,62 @@
 package de.tuhh.diss.plotbot;
 
 import lejos.nxt.SensorPort;
+import lejos.nxt.LCD;
 import lejos.nxt.Motor;
 import lejos.nxt.TouchSensor;
 
 
 public class Pen {
-	private TouchSensor Sensor = new TouchSensor(SensorPort.S2);
+	TouchSensor touchPen = new TouchSensor(SensorPort.S2);
+	private final static int HEIGHT = 0;
+	private int speed = 50;
 	private boolean isDown = false;
+	private boolean calibrated = false;
+	private int position =0 ;
+	private int sign = 1;
 
-	public void down(){
-		Motor.B.forward();
-		while(Sensor.isPressed()){
+	public void init(){
+		Motor.B.resetTachoCount();
+		this.position = 0;
+	}
+	
+	public void move(int degrees){
+		Motor.B.setSpeed(speed);
+		Motor.B.rotate(sign*degrees, false);
+		stop();
+		this.position += degrees; 
 		
+	}
+	public void down(){
+		if(!isDown){
+			move(HEIGHT);
+			isDown = true;
 		}
-		Motor.B.stop();
-		isDown = true;
 	}
 	public void up(){
-		Motor.B.backward();
-		while(!Sensor.isPressed()){
-			
+		while(!touchPen.isPressed()){
+			move(sign*-1);
 		}
-		Motor.B.stop();
 		isDown = false;
 	}
 	
 	public boolean isUp(){
 		return isDown;
+	}
+	public void calibratePen() throws InterruptedException{
+		
+		up();
+		LCD.drawString("Pen calibrated", 3, 0);
+		calibrated = true;
+		wait(1000);
+		LCD.clear();
+	}
+	private void stop(){
+		Motor.B.stop();
+	}
+	
+	public boolean getCalibrationStatus(){
+		return calibrated;
 	}
 
 }

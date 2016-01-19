@@ -5,26 +5,28 @@ import lejos.nxt.LCD;
 
 public class Plotbot {
 	public static void main(String[] args){
+		Interface menu = new Interface();
+		RobotArm arm = new RobotArm();
+		Pen pen = new Pen();
 		
 		int size = 0;
 		String shape = "";
 		
-		Interface.startUp();
+		menu.startUp();
 		while (size == 0){
 			while (shape == ""){
-				shape = Interface.selectShape();
+				shape = menu.selectShape();
 			}
-			size = Interface.selectSize();
+			size = menu.selectSize();
 		}
 		
+		if (arm.getCalibrationStatus() && pen.getCalibrationStatus()){
+			
 		
+		/*
+		 * PUT FUNCTION FOR DRAWING HERE!!!!!!
+		 */
 		
-		
-		
-		
-		// Some example code to check if the build process works
-		LCD.drawString("Compiled successfully", 0, 0);
-		LCD.drawString("Good Luck!", 0, 1);
-		Button.ESCAPE.waitForPressAndRelease();
+		}
 	}
 }
