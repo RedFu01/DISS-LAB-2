@@ -10,19 +10,19 @@ public class RobotArm {
 	
 	public void init(){
 		//TODO: move the arm to the default position;
-		Motor.B.resetTachoCount();
+		Motor.A.resetTachoCount();
 	}
 	
 	public void moveTo(int degree){
-		Motor.B.setSpeed(speed);
+		Motor.A.setSpeed(speed);
 		
 		int degrees = this.position - degree;
-		Motor.B.rotate(degrees, false);
+		Motor.A.rotate(degrees, false);
 		this.position = degree;
 	}
 	public void move(int degrees){
-		Motor.B.setSpeed(speed);
-		Motor.B.rotate(degrees, false);
+		Motor.A.setSpeed(speed);
+		Motor.A.rotate(degrees, false);
 		this.position += degrees; 
 		
 	}
