@@ -5,20 +5,35 @@ package de.tuhh.diss.plotbot;
 
 import lejos.nxt.Button;
 import lejos.nxt.LCD;
-
+import lejos.nxt.Motor;
 /**
  * @author Bjoern
  *
  */
 public class Interface {
+	//public static int size = 0;
+	//public static String shape = ""; 
+		
+	public static void main(String[] args){
+		int size = 0;
+		String shape = "";
+		startUp();
+		while (size == 0){
+			while (shape == ""){
+				shape = selectShape();
+			}
+			size = selectSize();
+		}
+			
+	}
 	
-	public static void startUp(){
+	private static void startUp(){
 		LCD.clear();
 		LCD.drawString("**Hello Mate !**",0,4);
 		Button.waitForAnyPress();
 	}
 	
-	public static String selectShape(){
+	private static String selectShape(){
 		String shape = "";
 		LCD.clear();
 		LCD.drawString("Select Shape!",1,0);
@@ -39,7 +54,7 @@ public class Interface {
 	 * selectSize()
 	 * 
 	 */
-	public static int selectSize(){
+	private static int selectSize(){
 		int size = 0;
 		LCD.clear();
 		LCD.drawString("Select Size!(mm)", 0, 0);
