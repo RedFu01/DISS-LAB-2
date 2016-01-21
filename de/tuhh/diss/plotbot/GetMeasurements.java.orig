@@ -20,9 +20,15 @@ public class GetMeasurements {
 	
 	public static int measureArm() throws InterruptedException{
 		
-
-		RobotArm arm = new RobotArm(1);
+<<<<<<< HEAD
 		int angleArm=0;
+		int anglePen=0;
+		RobotArm arm = new RobotArm(1);
+		Pen pen = new Pen();
+=======
+		RobotArm arm = new RobotArm();
+		int angleArm=0;
+>>>>>>> d3996eb48cb63e7b55e6230eca1947c3bd9a2f37
 		
 		//Measuring the arm!
 		LCD.drawString("measure Arm?", 0, 0);
