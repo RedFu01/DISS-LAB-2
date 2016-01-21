@@ -7,11 +7,21 @@ import lejos.nxt.Motor;
 public class GetMeasurements {
 
 	public static void main(String[] args) throws InterruptedException {
+		final int WHEEL_RADIUS = 10;
+		final int GEAR_RATIO = 1;
 		
-		int angleArm=0;
-		int anglePen=0;
+		int angleArm = measureArm();
+		int anglePen = measurePen();
+		int[] lightValues= new int[2];
+		
+		lightValues=getLightAndDark();
+		showValues(angleArm, anglePen, lightValues[0], lightValues[1]);
+	}
+	
+	public static int measureArm() throws InterruptedException{
+		
 		RobotArm arm = new RobotArm();
-		Pen pen = new Pen();
+		int angleArm=0;
 		
 		//Measuring the arm!
 		LCD.drawString("measure Arm?", 0, 0);
@@ -34,6 +44,11 @@ public class GetMeasurements {
 				LCD.drawInt(Motor.A.getTachoCount(), 1, 0);
 			}
 		}
+		return angleArm;
+	}
+	private static int measurePen() throws InterruptedException{
+		Pen pen = new Pen();
+		int anglePen=0;
 		
 		LCD.drawString("measure Pen?", 0, 0);
 		if(Button.ENTER.isDown()){
@@ -57,6 +72,31 @@ public class GetMeasurements {
 				LCD.drawInt(Motor.B.getTachoCount(), 1, 0);
 			}
 		}
+		return anglePen;
+	}
+
+
+	private static int[] getLightAndDark(){
+		int[] values = new int[2];
+		LCD.clear();
+		LCD.drawString("place on white", 0, 0);
+		Button.ENTER.waitForPressAndRelease();
+		values[0]=getLightValues();
+		
+		LCD.clear();
+		LCD.drawString("place on black", 0, 0);
+		Button.ENTER.waitForPressAndRelease();
+		values[1]=getLightValues();
+		LCD.clear();
+		return values;
+	}
+	
+	private static int getLightValues(){
+		RobotWheels rWs = new RobotWheels(1,10);
+		return rWs.light.getLightValue();
+	}
+	
+	private static void showValues(int angleArm, int anglePen, int lightValue, int darkValue){
 		LCD.drawString("show values?", 0, 0);
 		if(Button.ENTER.isDown()){
 			LCD.clear();
@@ -64,12 +104,17 @@ public class GetMeasurements {
 			LCD.drawInt(angleArm, 1, 0, 3);
 			LCD.drawString("degrees", 1, 5);
 			
-			LCD.drawString("Motor-angle Pen:", 3, 0);
-			LCD.drawInt(anglePen, 4, 0, 3);
-			LCD.drawString("degrees", 4, 5);
+			LCD.drawString("Motor-angle Pen:", 2, 0);
+			LCD.drawInt(anglePen, 3, 0, 3);
+			LCD.drawString("degrees", 3, 5);
+			
+			LCD.drawString("Value Light:", 4, 0);
+			LCD.drawInt(lightValue, 5, 0, 3);
+
+			LCD.drawString("Value Dark:", 6, 0);
+			LCD.drawInt(darkValue, 7, 0, 3);
 		}
 		Button.waitForAnyPress();
 		LCD.clear();
 	}
-
 }
