@@ -13,7 +13,7 @@ public class PlotTUHH {
 	}
 	
 	RobotWheels robot = new RobotWheels(5, 28);
-	RobotArm arm = new RobotArm();
+	RobotArm arm = new RobotArm(1);
 	
 	// Create the letters and border objects
 	Plotline T = new Plotline();
@@ -80,7 +80,7 @@ public class PlotTUHH {
 		
 	}
 	
-	public void main(String[] args) {
+	public void plot() {
 		// TODO Auto-generated method stub
 		goToUpEdge();
 		plotBorder(this.size);

@@ -9,7 +9,7 @@ public class Plotline {
 	// Create objects
 	Pen pen = new Pen();
 	RobotWheels robot = new RobotWheels(5, 28);
-	RobotArm arm = new RobotArm();
+	RobotArm arm = new RobotArm(1);
 
 	public static final int speedMotorC = 450; // Default speed
 

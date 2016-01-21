@@ -6,7 +6,7 @@ import lejos.nxt.LCD;
 public class Plotbot {
 	public static void main(String[] args){
 		Interface menu = new Interface();
-		RobotArm arm = new RobotArm();
+		RobotArm arm = new RobotArm(1);
 		Pen pen = new Pen();
 		
 		int size = 0;
@@ -19,13 +19,17 @@ public class Plotbot {
 			}
 			size = menu.selectSize();
 		}
-		
+		try {
+			pen.calibratePen();
+			arm.calibrateArm();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		if (arm.getCalibrationStatus() && pen.getCalibrationStatus()){
 			
-		
-		/*
-		 * PUT FUNCTION FOR DRAWING HERE!!!!!!
-		 */
+		Plotsquare plotter = new Plotsquare(size);
+		plotter.plot();
+
 		
 		}
 	}

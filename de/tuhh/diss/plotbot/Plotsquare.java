@@ -31,7 +31,7 @@ public class Plotsquare {
 		
 	}
 
-	public void main(String[] args) {
+	public void plot() {
 		// TODO Auto-generated method stub
 
 		goToUpEdge();

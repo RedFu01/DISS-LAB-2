@@ -10,7 +10,7 @@ public class GetMeasurements {
 		
 		int angleArm=0;
 		int anglePen=0;
-		RobotArm arm = new RobotArm();
+		RobotArm arm = new RobotArm(1);
 		Pen pen = new Pen();
 		
 		//Measuring the arm!
