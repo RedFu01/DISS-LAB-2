@@ -11,6 +11,11 @@ public class RobotArm {
 	private int speed = 90;
 	private boolean calibrated = false;
 	private int sign = 1;
+	private int gearRatio = 1;
+	
+	public RobotArm(int gearRatio){
+		this.gearRatio = gearRatio;
+	}
 	
 	public void init(){
 		//TODO: move the arm to the default position;
@@ -21,12 +26,12 @@ public class RobotArm {
 		Motor.A.setSpeed(speed);
 		
 		int degrees = this.position - degree;
-		Motor.A.rotate(sign*degrees, false);
+		Motor.A.rotate(sign*degrees*gearRatio, false);
 		this.position = degree;
 	}
 	public void move(int degrees){
 		Motor.A.setSpeed(speed);
-		Motor.A.rotate(sign*degrees, false);
+		Motor.A.rotate(sign*degrees*gearRatio, false);
 		this.position += degrees; 
 		
 	}
