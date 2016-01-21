@@ -86,20 +86,26 @@ public class PlotTUHH {
 		plotBorder(this.size);
 		
 		// Put positioning code according to edgeGap
+		Motor.A.rotate((int) Transform.shiftAngle(this.size));
+		Motor.C.rotate((int) -(Transform.edgeGap(this.size) + Transform.distanceTachoC(Transform.textWidth(size) / 2)));
 		
 		plotStringT(this.size);
 		
-		// Put positioning code according to textGap
+		Motor.C.rotate((int) -Transform.textGap(this.size));
 		
 		plotStringU(this.size);
 		
 		// Put positioning code according to textGap
+		Motor.C.rotate((int) -Transform.textGap(this.size));
 		
 		plotStringH(this.size);
 		
 		// Put positioning code according to textGap
+		Motor.C.rotate((int) -Transform.textGap(this.size));
 		
 		plotStringH(this.size);
+		
+		Motor.C.rotate(-1000); // Get out from the drawing field
 	}
 
 }

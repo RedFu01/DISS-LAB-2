@@ -70,6 +70,6 @@ public class Transform {
 	
 	// Evaluate this!!!!!!!
 	public static double shiftAngle(double textSize) {
-		return Math.asin(0.5 * textSize / ARM2PEN);
+		return (Math.asin(0.5 * borderHeight(textSize) / ARM2PEN) * 360 / (2 * Math.PI)) - (Math.asin(0.5794 * textSize / ARM2PEN) * 360 / (2 * Math.PI));
 	}
 }
