@@ -1,39 +1,40 @@
 package de.tuhh.diss.plotbot;
 
 import lejos.nxt.Motor;
-import lejos.nxt.SensorPort;
-import lejos.nxt.TouchSensor;
 
 public class Plotsquare {
-
+	public static final int edge = 230;
+	public static final int offset = 35; // Distance from pen to light sensor
+	public static final int speedMotorC = 450;
+	public int size;
+	
+	RobotWheels robot = new RobotWheels(5, 28);
+	
+	public Plotsquare(int size) {
+		this.size = size;
+	}
+	
 	// Create object square
-	public Plotline square;
+	Plotline square = new Plotline();
 
-	public Plotsquare(Plotline sq) {
-			square = sq;
-		}
+	public void plotSquare(int size) {
+		square.lineInX(this.size);
+		square.lineInY(-this.size);
+		square.lineInX(-this.size);
+		square.lineInY(this.size);
+	}
 
-	public void plotSquare(double size) {
-		square.lineInX(size);
-		square.lineInY(size);
-		square.lineInX(size);
-		square.lineInY(size);
+	public void goToUpEdge() {
+
+		Motor.C.setSpeed(speedMotorC);
+		robot.drive(edge + offset); // 35 is offset from pen and light sensor
+		
 	}
 
 	public void main(String[] args) {
 		// TODO Auto-generated method stub
-		TouchSensor touchSwivel = new TouchSensor(SensorPort.S1);
 
-		int size = 113;
-
-		square.goToUpEdge();
-
-		while (touchSwivel.isPressed() == false) {
-			Motor.A.rotate(-1); // Assume the swivel arm is initially straight
-		}
-		Motor.A.stop();
-		Motor.A.resetTachoCount();
-
+		goToUpEdge();
 		plotSquare(size);
 	}
 
