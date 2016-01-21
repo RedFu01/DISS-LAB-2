@@ -6,11 +6,11 @@ import lejos.nxt.Motor;
 import lejos.nxt.TouchSensor;
 
 public class RobotArm {
-	TouchSensor touchSensorArm = new TouchSensor(SensorPort.S4);
+	TouchSensor touchSensorArm = new TouchSensor(SensorPort.S1);
 	private int position =0 ;
-	private int speed = 90;
+	private int speed = 360;
 	private boolean calibrated = false;
-	private int sign = 1;
+	private int sign = -1;
 	private int gearRatio = 1;
 	
 	public RobotArm(int gearRatio){
@@ -49,15 +49,16 @@ public class RobotArm {
 		while (!touchSensorArm.isPressed()) {
 			move(1);
 		}
+		
 		this.position = 0;
 		init();
 		
 		//moveTo(90);
 		
 		calibrated=true;
-		LCD.drawString("Arm calibrated", 0, 0);
-		wait(1000);
-		LCD.clear();
+		//LCD.drawString("Arm calibrated", 0, 0);
+		
+		//LCD.clear();
 		
 	}
 	public boolean getCalibrationStatus(){

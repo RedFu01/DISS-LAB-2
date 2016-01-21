@@ -9,7 +9,7 @@ import lejos.nxt.TouchSensor;
 public class Pen {
 	TouchSensor touchPen = new TouchSensor(SensorPort.S2);
 	private final static int HEIGHT = 0;
-	private int speed = 450;
+	private int speed = 960;
 	private boolean isDown = false;
 	private boolean calibrated = false;
 	private int position =0 ;

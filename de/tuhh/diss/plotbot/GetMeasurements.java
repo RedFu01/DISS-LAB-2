@@ -6,11 +6,9 @@ import lejos.nxt.Motor;
 
 public class GetMeasurements {
 
-	public static void main(String[] args) throws InterruptedException {
-		final int WHEEL_RADIUS = 10;
-		final int GEAR_RATIO = 1;
+	public static void start(int ARM_GEAR_RATIO) throws InterruptedException {
 		
-		int angleArm = measureArm();
+		int angleArm = measureArm(ARM_GEAR_RATIO);
 		int anglePen = measurePen();
 		int[] lightValues= new int[2];
 		
@@ -18,10 +16,10 @@ public class GetMeasurements {
 		showValues(angleArm, anglePen, lightValues[0], lightValues[1]);
 	}
 	
-	public static int measureArm() throws InterruptedException{
+	public static int measureArm(int ARM_GEAR_RATIO) throws InterruptedException{
 		
 
-		RobotArm arm = new RobotArm(1);
+		RobotArm arm = new RobotArm(ARM_GEAR_RATIO);
 		int angleArm=0;
 		
 		//Measuring the arm!
@@ -32,11 +30,11 @@ public class GetMeasurements {
 			
 			arm.calibrateArm();
 			arm.init();
-			while(!Button.ENTER.isDown() || !Button.ESCAPE.isDown()){
+			while(!Button.ENTER.isDown() && !Button.ESCAPE.isDown()){
 				while(Button.LEFT.isDown()){
 					arm.move(1);
 				}
-				while(Button.LEFT.isDown()){
+				while(Button.RIGHT.isDown()){
 					arm.move(-1);
 				}
 			}
@@ -58,7 +56,7 @@ public class GetMeasurements {
 			
 			pen.calibratePen();
 			pen.init();
-			while(!Button.ENTER.isDown() || !Button.ESCAPE.isDown()){
+			while(!Button.ENTER.isDown() && !Button.ESCAPE.isDown()){
 				LCD.drawString("LEFT  -> up", 1, 0);
 				LCD.drawString("RIGHT -> down", 2, 0);
 				while(Button.LEFT.isDown()){
@@ -71,6 +69,7 @@ public class GetMeasurements {
 			if(Button.ENTER.isDown()){
 				anglePen = Motor.B.getTachoCount();
 				LCD.drawInt(Motor.B.getTachoCount(), 1, 0);
+				Thread.sleep(200);
 			}
 		}
 		return anglePen;
