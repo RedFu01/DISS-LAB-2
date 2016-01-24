@@ -18,9 +18,9 @@ public class Plotsquare {
 	Plotline square = new Plotline();
 
 	public void plotSquare(int size) {
-		square.lineInX(-this.size);
-		square.lineInY(-this.size);
 		square.lineInX(this.size);
+		square.lineInY(-this.size);
+		square.lineInX(-this.size);
 		square.lineInY(this.size);
 	}
 

@@ -28,9 +28,9 @@ public class PlotTUHH {
 		int borderHeight = (int) Transform.borderHeight(size);
 		int borderWidth = (int) Transform.borderWidth(size);
 		
-		border.lineInX(-borderHeight); // draw in x-dir to the right
+		border.lineInX(borderHeight); // draw in x-dir to the right
 		border.lineInY(-borderWidth);  // draw in y-dir backward
-		border.lineInX(borderHeight); // draw in x-dir to the left
+		border.lineInX(-borderHeight); // draw in x-dir to the left
 		border.lineInY(borderWidth);  // draw in y-dir forward
 	}
 	
@@ -39,7 +39,7 @@ public class PlotTUHH {
 		int bodyT = size;
 		
 		// Draw from left to right
-		T.lineInX(-bodyT);
+		T.lineInX(bodyT);
 		
 		int mid = (int) Transform.distanceTachoC(headT / 2);
 		robot.drive(mid);
@@ -51,9 +51,9 @@ public class PlotTUHH {
 		int bodyU = (int) Transform.textWidth(size);
 		int baseU = size;
 		
-		U.lineInX(bodyU); // right to left
+		U.lineInX(-bodyU); // right to left
 		U.lineInY(-baseU); // go backward
-		U.lineInX(-bodyU); // left to right
+		U.lineInX(bodyU); // left to right
 	}
 	
 	public void plotStringH(int size) {
@@ -61,12 +61,12 @@ public class PlotTUHH {
 		int middleH = size;
 		int reposition = (int) Transform.tachoC(size);
 		
-		H.lineInX(bodyH); // right to left
+		H.lineInX(-bodyH); // right to left
 		arm.init();
 		robot.drive(-reposition);
 		H.lineInY(-middleH); // backwards
 		robot.drive(reposition);
-		H.lineInX(-bodyH); // left to right
+		H.lineInX(bodyH); // left to right
 		
 	}
 
