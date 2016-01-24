@@ -56,16 +56,16 @@ public class Plotline {
 		pen.down();
 		
 		// Right to Left drawing
-		if (angle > 0) {
+		if (angle < 0) {
 			// Start drawing from right to middle
-			for (countAngle = 0; countAngle > -angle; countAngle--) {
+			for (countAngle = 0; countAngle > angle; countAngle--) {
 				distanceY = (int) Transform.tachoC(1);
 				arm.move(1);
 				robot.drive(-distanceY);
 			}
 
 			// Start drawing from middle to left
-			for (countAngle = 0; countAngle > -angle; countAngle--) {
+			for (countAngle = 0; countAngle > angle; countAngle--) {
 				distanceY = (int) Transform.tachoC(1);
 				arm.move(1);
 				robot.drive(distanceY);
@@ -77,14 +77,14 @@ public class Plotline {
 		// Left to Right drawing
 		else {
 			// Start drawing from left to middle
-			for (countAngle = 0; countAngle < -angle; countAngle++) {
+			for (countAngle = 0; countAngle < angle; countAngle++) {
 				distanceY = (int) Transform.tachoC(1);
 				arm.move(-1);
 				robot.drive(-distanceY);
 			}
 
 			// Start drawing from middle to right
-			for (countAngle = 0; countAngle > -angle; countAngle--) {
+			for (countAngle = 0; countAngle < angle; countAngle++) {
 				distanceY = (int) Transform.tachoC(1);
 				arm.move(-1);
 				robot.drive(distanceY);
