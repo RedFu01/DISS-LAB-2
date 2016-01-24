@@ -34,12 +34,12 @@ public class Plotline {
 
 	public void lineInX(int lineLengthX) {
 		double angledb;
-		int omegaA = 90, omegaC;
+		int omegaC;
 		int distanceY;
 
 		angledb = Transform.sweepAngle(lineLengthX); // angle in 'double' type
 		
-		omegaC = (int) Transform.syncA2C(omegaA);
+		omegaC = (int) Transform.syncA2C(Motor.A.getSpeed());
 		
 		// Cannot give exact angle movement due to double vs. int
 		int angle = (int) Math.round(angledb); // angle in 'int' type
@@ -47,7 +47,6 @@ public class Plotline {
 		int countAngle;
 
 		// Motors' speed setup, synchronized C depends on A
-		Motor.A.setSpeed(omegaA);
 		Motor.C.setSpeed(omegaC);
 		
 		// Right to left drawing or left to right depends on +/- length of X

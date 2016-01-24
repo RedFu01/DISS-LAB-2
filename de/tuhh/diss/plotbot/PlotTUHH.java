@@ -51,11 +51,8 @@ public class PlotTUHH {
 		int bodyU = (int) Transform.textWidth(size);
 		int baseU = size;
 		
-		// Put arm to the starting drawing of U position (consider text gap)
-		// Or the placement of pen for next letter in the main()
-		
 		U.lineInX(bodyU); // right to left
-		U.lineInY(-baseU); // go down
+		U.lineInY(-baseU); // go backward
 		U.lineInX(-bodyU); // left to right
 	}
 	
@@ -85,27 +82,27 @@ public class PlotTUHH {
 		goToUpEdge();
 		plotBorder(this.size);
 		
-		// Put positioning code according to edgeGap
+		// Pen placement after draw the border
 		Motor.A.rotate((int) Transform.shiftAngle(this.size));
-		Motor.C.rotate((int) -(Transform.edgeGap(this.size) + Transform.distanceTachoC(Transform.textWidth(size) / 2)));
+		robot.drive((int) -(Transform.shiftPosition(this.size) + Transform.edgeGap(this.size) + Transform.distanceTachoC(Transform.textWidth(size) / 2)));
 		
 		plotStringT(this.size);
 		
-		Motor.C.rotate((int) -Transform.textGap(this.size));
+		robot.drive((int) -Transform.textGap(this.size));
 		
 		plotStringU(this.size);
 		
 		// Put positioning code according to textGap
-		Motor.C.rotate((int) -Transform.textGap(this.size));
+		robot.drive((int) -Transform.textGap(this.size));
 		
 		plotStringH(this.size);
 		
 		// Put positioning code according to textGap
-		Motor.C.rotate((int) -Transform.textGap(this.size));
+		robot.drive((int) -Transform.textGap(this.size));
 		
 		plotStringH(this.size);
 		
-		Motor.C.rotate(-1000); // Get out from the drawing field
+		robot.drive(-100); // Get out from the drawing field
 	}
 
 }

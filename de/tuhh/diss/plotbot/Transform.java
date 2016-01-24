@@ -10,7 +10,7 @@ public class Transform {
 
 	// Angle from input size, for square max ~113 mm and for TUHH string max ~79 mm
 	public static double sweepAngle(double size) {
-		return Math.asin(size / (2 * ARM2PEN)); // in degrees and mm
+		return Math.toDegrees(Math.asin(size / (2 * ARM2PEN))); // in degrees and mm
 	}
 	
 	// Synchronization based on speed
@@ -21,7 +21,7 @@ public class Transform {
 	// TachoCount of Motor C movement in y-axis to accommodate straight line in x-axis
 	// Synchronization based on same time to reach mid point
 	public static double tachoC(double angle) {
-		return (80.0 - 80.0 * Math.cos(angle)) / WHEELCIRCUMFERENCE * GEARRATIOC * 360;
+		return (80.0 - 80.0 * Math.cos(Math.toRadians(angle))) / WHEELCIRCUMFERENCE * GEARRATIOC * 360;
 	}
 	
 	public static double distanceTachoC(double distance) {
@@ -34,7 +34,7 @@ public class Transform {
 
 	// Work on linear velocity or angular velocity?
 	public static double carVel(double angle, double armVel) {
-		return ((1.0 - Math.cos(angle)) / Math.sin(angle)) * armVel;
+		return ((1.0 - Math.cos(Math.toRadians(angle))) / Math.sin(Math.toRadians(angle))) * armVel;
 	}
 
 	// Motor C depends and synchronizes to Motor A
@@ -43,7 +43,7 @@ public class Transform {
 	}
 
 	public static double omegaMotorC(double angle, double omegaMotorA) {
-		return ((1.0 - Math.cos(angle)) / Math.sin(angle)) * (GEARRATIOC / GEARRATIOA) * (ARM2PEN / WHEELRADIUS) * omegaMotorA;
+		return ((1.0 - Math.cos(Math.toRadians(angle))) / Math.sin(Math.toRadians(angle))) * (GEARRATIOC / GEARRATIOA) * (ARM2PEN / WHEELRADIUS) * omegaMotorA;
 	}
 
 	// TUHH string plotting dimensions
@@ -67,9 +67,20 @@ public class Transform {
 		return edgeGap(textSize) / 2; 
 	}
 	
-	
-	// Evaluate this!!!!!!!
+	// Placing pen to draw strings
 	public static double shiftAngle(double textSize) {
-		return (Math.asin(0.5 * borderHeight(textSize) / ARM2PEN) * 360 / (2 * Math.PI)) - (Math.asin(0.5794 * textSize / ARM2PEN) * 360 / (2 * Math.PI));
+		return beta(textSize) - alpha(textSize);
+	}
+	
+	public static double alpha(double textSize) {
+		return Math.toDegrees(Math.asin((0.5 * borderHeight(textSize)) / ARM2PEN));
+	}
+	
+	public static double beta(double textSize) {
+		return Math.toDegrees(Math.asin((0.5 * textSize) / ARM2PEN));
+	}
+	
+	public static double shiftPosition(double textSize) {
+		return (ARM2PEN * Math.cos(Math.toRadians(beta(textSize)))) - (ARM2PEN * Math.cos(Math.toRadians(alpha(textSize))));
 	}
 }
