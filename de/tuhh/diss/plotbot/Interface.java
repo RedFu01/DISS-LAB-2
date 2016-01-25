@@ -27,10 +27,10 @@ public class Interface {
 	public String selectShape(){
 		String shape = "";
 		LCD.clear();
-		LCD.drawString("Select Shape!",1,0);
-		LCD.drawString("Button to press:", 1, 1);
-		LCD.drawString("Left: square",1,3);
-		LCD.drawString("Right: TUHH",1,4);
+		LCD.drawString("Select Shape!",0,0);
+		LCD.drawString("Button to press:", 0, 1);
+		LCD.drawString("Left: square",0,3);
+		LCD.drawString("Right: TUHH",0,4);
 		Button.waitForAnyPress();
 		if(Button.LEFT.isDown()){
 			shape = "square";
@@ -89,10 +89,12 @@ public class Interface {
 	 * @return void 
 	 */
 	private void showChoice(String shape){
+		LCD.clear();
 		LCD.drawString("Your choice:", 0, 6);
 		LCD.drawString(shape, 0, 7);
-		LCD.drawString("press button", 5, 0);
+		LCD.drawString("press button", 0, 8);
 		Button.waitForAnyPress();
+		LCD.clear();
 	}
 	
 	/**
@@ -101,10 +103,11 @@ public class Interface {
 	 * @return void 
 	 */
 	private void showInt(int number){
+		LCD.clear();
 		LCD.drawString("Your choice:", 0, 6);
 		LCD.drawInt(number, 0, 7, 3);
-		LCD.drawString("press button", 5, 0);
+		LCD.drawString("press button", 0, 8);
 		Button.waitForAnyPress();
-		
+		LCD.clear();
 	}
 }

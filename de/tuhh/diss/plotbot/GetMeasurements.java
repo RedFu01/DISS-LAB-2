@@ -127,21 +127,19 @@ public class GetMeasurements {
 	 */
 	private static void showValues(int angleArm, int anglePen, int lightValue, int darkValue){
 		LCD.clear();
-			LCD.drawString("Motor-angle Arm:", 0, 0);
-			LCD.drawInt(angleArm, 1, 0, 3);
-			LCD.drawString("degrees", 1, 5);
-			
-			LCD.drawString("Motor-angle Pen:", 2, 0);
-			LCD.drawInt(anglePen, 3, 0, 3);
-			LCD.drawString("degrees", 3, 5);
-			
-			LCD.drawString("Value Light:", 4, 0);
-			LCD.drawInt(lightValue, 5, 0, 3);
-
-			LCD.drawString("Value Dark:", 6, 0);
-			LCD.drawInt(darkValue, 7, 0, 3);
-
+		LCD.drawString("Motor-angle Arm:", 0, 0);
+		LCD.drawInt(angleArm, 0, 1, 3);
+		LCD.drawString("degrees", 5, 1);
+		
+		LCD.drawString("Motor-angle Pen:", 0, 2);
+		LCD.drawInt(anglePen, 0, 3, 3);
+		LCD.drawString("degrees", 5, 3);
+		
+		LCD.drawString("Value Light:", 0, 4);
+		LCD.drawInt(lightValue, 0, 5, 3);
+		LCD.drawString("Value Dark:", 0, 6);
+		LCD.drawInt(darkValue, 0, 7, 3);
 		Button.waitForAnyPress();
-		LCD.clear();
+	LCD.clear();
 	}
 }

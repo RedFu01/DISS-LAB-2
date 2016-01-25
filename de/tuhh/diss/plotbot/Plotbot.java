@@ -62,8 +62,8 @@ public class Plotbot {
 			}
 		}else{
 			LCD.drawString("calibration:", 0, 0);
-			LCD.drawString("failed!", 1, 0);
-			LCD.drawString("start again", 5, 0);
+			LCD.drawString("failed!", 0, 1);
+			LCD.drawString("start again", 0, 2);
 		}
 
 		

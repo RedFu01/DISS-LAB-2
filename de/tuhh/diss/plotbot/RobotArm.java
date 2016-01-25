@@ -49,22 +49,16 @@ public class RobotArm {
 	 * @throws InterruptedException
 	 */
 	public void calibrateArm(){
-		
-		while (!touchSensorArm.isPressed()) {
-			move(1);
+		motor.backward();
+		while (!touchSensorArm.isPressed()){
+			
 		}
-		
+		motor.stop();
 		this.position = 0;
 		init();
-		
-		//moveTo(90);
-		
 		calibrated=true;
-		//LCD.drawString("Arm calibrated", 0, 0);
-		
-		//LCD.clear();
-		
 	}
+	
 	public boolean getCalibrationStatus(){
 		return calibrated;
 	}
