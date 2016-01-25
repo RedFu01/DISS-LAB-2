@@ -70,7 +70,7 @@ public class PlotTUHH {
 	public void goToUpEdge() {
 		double angle = Transform.sweepAngle(this.size);
 		
-		Motor.C.setSpeed(speedMotorC);
+		Plotbot.robotWheels.setSpeed(speedMotorC);
 		Plotbot.robotWheels.drive(edge + offset + (int) Transform.tachoC(angle)); 
 		// 35 is offset from pen and light sensor + more offset due to angled arm
 	}

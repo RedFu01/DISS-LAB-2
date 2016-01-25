@@ -26,19 +26,27 @@ public class RobotArm {
 		motor.resetTachoCount();
 	}
 	
-	public void moveTo(int degree){
+	public void moveTo(int degree, boolean imideateReturn){
 		motor.setSpeed(speed);
 		
 		int degrees = this.position - degree;
 		motor.rotate(sign*degrees*gearRatio, false);
 		this.position = degree;
 	}
-	public void move(int degrees){
+	public void move(int degrees, boolean imideateReturn){
 		motor.setSpeed(speed);
-		motor.rotate(sign*degrees*gearRatio, false);
+		motor.rotate(sign*degrees*gearRatio, imideateReturn);
 		this.position += degrees; 
 		
 	}
+	
+	public void move(int degrees){
+		move(degrees, false);
+	}
+	public void moveTo(int degrees){
+		moveTo(degrees, false);
+	}
+	
 	public int getPosition(){
 		return this.position;
 	}
