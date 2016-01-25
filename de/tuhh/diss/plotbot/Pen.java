@@ -11,7 +11,7 @@ public class Pen {
 	private TouchSensor penSensor= null;
 	private NXTRegulatedMotor penMotor = null;
 	private final static int HEIGHT = 0;
-	private int speed = 1320;
+	private int speed = 960;
 	private boolean isDown = false;
 	private boolean calibrated = false;
 	private int position =0 ;
@@ -41,9 +41,11 @@ public class Pen {
 		}
 	}
 	public void up(){
+		penMotor.forward();
 		while(!penSensor.isPressed()){
-			move(sign*1);
+			
 		}
+		penMotor.stop();
 		isDown = false;
 	}
 	
