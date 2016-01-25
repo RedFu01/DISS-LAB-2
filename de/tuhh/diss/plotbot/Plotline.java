@@ -7,28 +7,24 @@ import lejos.nxt.LCD;
 public class Plotline {
 
 	// Create objects
-	Pen pen = new Pen();
-	RobotWheels robot = new RobotWheels(5, 28);
-	RobotArm arm = new RobotArm(1);
 
 	public static final int speedMotorC = 450; // Default speed
 
 	public void lineInY(int lineLengthY) {
 		int lengthY = lineLengthY;
 
-		Motor.C.setSpeed(speedMotorC);
-		Motor.C.resetTachoCount();
+		Plotbot.robotWheels.setSpeed(speedMotorC);
+		Plotbot.wheelMotor.resetTachoCount();
 		
-		pen.down();
-		robot.driveToDistance(lengthY);
+		Plotbot.pen.down();
+		Plotbot.robotWheels.driveToDistance(lengthY);
 
-		while (Motor.C.isMoving() && !Button.ESCAPE.isDown()) {
-			LCD.drawInt((int) Transform.distanceC(Motor.C.getTachoCount()), 0, 0);
+		while (Plotbot.wheelMotor.isMoving() && !Button.ESCAPE.isDown()) {
+			LCD.drawInt((int) Transform.distanceC(Plotbot.wheelMotor.getTachoCount()), 0, 0);
 		}
-		Motor.C.stop();
-		Motor.C.resetTachoCount();
+		Plotbot.wheelMotor.resetTachoCount();
 		
-		pen.up();
+		Plotbot.pen.up();
 
 	}
 
@@ -39,7 +35,7 @@ public class Plotline {
 
 		angledb = Transform.sweepAngle(lineLengthX); // angle in 'double' type
 		
-		omegaC = (int) Transform.syncA2C(Motor.A.getSpeed());
+		omegaC = (int) Transform.syncA2C(Plotbot.armMotor.getSpeed());
 		
 		// Cannot give exact angle movement due to double vs. int
 		int angle = (int) Math.round(angledb); // angle in 'int' type
@@ -47,46 +43,46 @@ public class Plotline {
 		int countAngle;
 
 		// Motors' speed setup, synchronized C depends on A
-		Motor.C.setSpeed(omegaC);
+		Plotbot.robotWheels.setSpeed(omegaC);
 		
 		// Right to left drawing or left to right depends on +/- length of X
 		
-		arm.init();
-		arm.moveTo(angle);
-		pen.down();
+		Plotbot.robotArm.init();
+		Plotbot.robotArm.moveTo(angle);
+		Plotbot.pen.down();
 		
 		// Right to Left drawing
 		if (angle < 0) {
 			// Start drawing from right to middle
 			for (countAngle = 0; countAngle > angle; countAngle--) {
-				arm.move(1);
-				robot.drive(-distanceY);
+				Plotbot.robotArm.move(1);
+				Plotbot.robotWheels.drive(-distanceY);
 			}
 
 			// Start drawing from middle to left
 			for (countAngle = 0; countAngle > angle; countAngle--) {
-				arm.move(1);
-				robot.drive(distanceY);
+				Plotbot.robotArm.move(1);
+				Plotbot.robotWheels.drive(distanceY);
 			}
 			
-			pen.up();
+			Plotbot.pen.up();
 		}
 		
 		// Left to Right drawing
 		else {
 			// Start drawing from left to middle
 			for (countAngle = 0; countAngle < angle; countAngle++) {
-				arm.move(-1);
-				robot.drive(-distanceY);
+				Plotbot.robotArm.move(-1);
+				Plotbot.robotWheels.drive(-distanceY);
 			}
 
 			// Start drawing from middle to right
 			for (countAngle = 0; countAngle < angle; countAngle++) {
-				arm.move(-1);
-				robot.drive(distanceY);
+				Plotbot.robotArm.move(-1);
+				Plotbot.robotWheels.drive(distanceY);
 			}
 			
-			pen.up();
+			Plotbot.pen.up();
 		}
 	}
 }

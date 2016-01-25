@@ -8,8 +8,6 @@ public class Plotsquare {
 	public static final int speedMotorC = 450;
 	public int size;
 	
-	RobotWheels robot = new RobotWheels(5, 28);
-	
 	public Plotsquare(int size) {
 		this.size = size;
 	}
@@ -28,7 +26,7 @@ public class Plotsquare {
 		double angle = Transform.sweepAngle(this.size);
 		
 		Motor.C.setSpeed(speedMotorC);
-		robot.drive(edge + offset + (int) Transform.tachoC(angle)); 
+		Plotbot.robotWheels.drive(edge + offset + (int) Transform.tachoC(angle)); 
 		// 35 is offset from pen and light sensor + more offset due to angled arm
 	}
 

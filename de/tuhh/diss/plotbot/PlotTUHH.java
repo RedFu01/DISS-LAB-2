@@ -12,9 +12,6 @@ public class PlotTUHH {
 		this.size = size;
 	}
 	
-	RobotWheels robot = new RobotWheels(5, 28);
-	RobotArm arm = new RobotArm(1);
-	
 	// Create the letters and border objects
 	Plotline T = new Plotline();
 	Plotline U = new Plotline();
@@ -42,7 +39,7 @@ public class PlotTUHH {
 		T.lineInX(bodyT);
 		
 		int mid = (int) Transform.distanceTachoC(headT / 2);
-		robot.drive(mid);
+		Plotbot.robotWheels.drive(mid);
 		T.lineInY(-headT); // backward
 		
 	}
@@ -62,10 +59,10 @@ public class PlotTUHH {
 		int reposition = (int) Transform.tachoC(size);
 		
 		H.lineInX(-bodyH); // right to left
-		arm.init();
-		robot.drive(-reposition);
+		Plotbot.robotArm.init();
+		Plotbot.robotWheels.drive(-reposition);
 		H.lineInY(-middleH); // backwards
-		robot.drive(reposition);
+		Plotbot.robotWheels.drive(reposition);
 		H.lineInX(bodyH); // left to right
 		
 	}
@@ -74,12 +71,12 @@ public class PlotTUHH {
 		double angle = Transform.sweepAngle(this.size);
 		
 		Motor.C.setSpeed(speedMotorC);
-		robot.drive(edge + offset + (int) Transform.tachoC(angle)); 
+		Plotbot.robotWheels.drive(edge + offset + (int) Transform.tachoC(angle)); 
 		// 35 is offset from pen and light sensor + more offset due to angled arm
 	}
 	
 	public void gap(int size){
-		robot.drive((int) -Transform.textGap(this.size));
+		Plotbot.robotWheels.drive((int) -Transform.textGap(this.size));
 	}
 	
 	public void plot() {
@@ -89,7 +86,7 @@ public class PlotTUHH {
 		
 		// Pen placement after draw the border
 		Motor.A.rotate((int) Transform.shiftAngle(this.size));
-		robot.drive((int) -(Transform.shiftPosition(this.size) + Transform.edgeGap(this.size) + Transform.distanceTachoC(Transform.textWidth(size) / 2)));
+		Plotbot.robotWheels.drive((int) -(Transform.shiftPosition(this.size) + Transform.edgeGap(this.size) + Transform.distanceTachoC(Transform.textWidth(size) / 2)));
 		
 		plotStringT(this.size);
 		
@@ -105,7 +102,7 @@ public class PlotTUHH {
 		
 		plotStringH(this.size);
 		
-		robot.drive((int) Transform.distanceTachoC(-100)); // Get out from the drawing field
+		Plotbot.robotWheels.drive((int) Transform.distanceTachoC(-100)); // Get out from the drawing field
 	}
 
 }

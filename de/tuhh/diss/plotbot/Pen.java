@@ -3,17 +3,24 @@ package de.tuhh.diss.plotbot;
 import lejos.nxt.SensorPort;
 import lejos.nxt.LCD;
 import lejos.nxt.Motor;
+import lejos.nxt.NXTRegulatedMotor;
 import lejos.nxt.TouchSensor;
 
 
 public class Pen {
-	TouchSensor touchPen = new TouchSensor(SensorPort.S2);
+	private TouchSensor penSensor= null;
+	private NXTRegulatedMotor penMotor = null;
 	private final static int HEIGHT = 0;
 	private int speed = 960;
 	private boolean isDown = false;
 	private boolean calibrated = false;
 	private int position =0 ;
-	private int sign = 1;
+	private int sign = -1;
+	
+	public Pen(TouchSensor penSensor, NXTRegulatedMotor penMotor){
+		this.penSensor = penSensor;
+		this.penMotor = penMotor;
+	}
 
 	public void init(){
 		Motor.B.resetTachoCount();
@@ -34,7 +41,7 @@ public class Pen {
 		}
 	}
 	public void up(){
-		while(!touchPen.isPressed()){
+		while(!penSensor.isPressed()){
 			move(sign*-1);
 		}
 		isDown = false;

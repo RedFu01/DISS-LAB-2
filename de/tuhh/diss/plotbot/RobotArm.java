@@ -3,35 +3,39 @@ package de.tuhh.diss.plotbot;
 import lejos.nxt.SensorPort;
 import lejos.nxt.LCD;
 import lejos.nxt.Motor;
+import lejos.nxt.NXTRegulatedMotor;
 import lejos.nxt.TouchSensor;
 
 public class RobotArm {
-	TouchSensor touchSensorArm = new TouchSensor(SensorPort.S1);
+	private TouchSensor touchSensorArm = null;
+	private NXTRegulatedMotor motor = null;
 	private int position =0 ;
-	private int speed = 360;
+	private int speed = 720;
 	private boolean calibrated = false;
 	private int sign = -1;
 	private int gearRatio = 1;
 	
-	public RobotArm(int gearRatio){
+	public RobotArm(TouchSensor sensor, NXTRegulatedMotor motor, int gearRatio){
 		this.gearRatio = gearRatio;
+		this.touchSensorArm = sensor;
+		this.motor = motor;
 	}
 	
 	public void init(){
 		//TODO: move the arm to the default position;
-		Motor.A.resetTachoCount();
+		motor.resetTachoCount();
 	}
 	
 	public void moveTo(int degree){
-		Motor.A.setSpeed(speed);
+		motor.setSpeed(speed);
 		
 		int degrees = this.position - degree;
-		Motor.A.rotate(sign*degrees*gearRatio, false);
+		motor.rotate(sign*degrees*gearRatio, false);
 		this.position = degree;
 	}
 	public void move(int degrees){
-		Motor.A.setSpeed(speed);
-		Motor.A.rotate(sign*degrees*gearRatio, false);
+		motor.setSpeed(speed);
+		motor.rotate(sign*degrees*gearRatio, false);
 		this.position += degrees; 
 		
 	}
