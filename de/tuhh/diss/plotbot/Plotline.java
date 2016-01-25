@@ -15,7 +15,7 @@ public class Plotline {
 		Motor.C.resetTachoCount();
 		
 		Plotbot.pen.down();
-		Plotbot.robotWheels.tachoDriveTo(distanceY);
+		Plotbot.robotWheels.driveToDistance(distanceY);
 		Plotbot.pen.up();
 
 	}
@@ -47,11 +47,11 @@ public class Plotline {
 		
 		// 1st half of the line in x-dir
 		Plotbot.robotArm.move(-angle);
-		Plotbot.robotWheels.tachoDrive(-distanceY);
+		Plotbot.robotWheels.drive((int)-distanceY);
 		
 		// 2nd half of the line in x-dir
 		Plotbot.robotArm.move(-angle);
-		Plotbot.robotWheels.tachoDrive(distanceY);
+		Plotbot.robotWheels.drive((int)distanceY);
 					
 		Plotbot.pen.up();
 	}

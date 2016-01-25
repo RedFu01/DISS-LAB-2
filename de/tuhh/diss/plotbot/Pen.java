@@ -56,6 +56,7 @@ public class Pen {
 	public void calibratePen(){	
 		up();
 		penMotor.resetTachoCount();
+		penMotor.rotate(-20);
 		penMotor.backward();
 		while(!penSensor.isPressed()){
 			
