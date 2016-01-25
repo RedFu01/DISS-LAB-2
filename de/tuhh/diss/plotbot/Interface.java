@@ -55,11 +55,11 @@ public class Interface {
 		LCD.setAutoRefresh(true);
 		LCD.drawString("Size = ", 0, 5);
 		while (!Button.ENTER.isDown()){
-			if(Button.RIGHT.isDown()){
+			while(Button.RIGHT.isDown()){
 				size+=1;
 				showInt(size);
 			}
-			if(Button.LEFT.isDown()){
+			while(Button.LEFT.isDown()){
 				size-=1;
 				showInt(size);
 			}

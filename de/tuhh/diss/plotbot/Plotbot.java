@@ -25,13 +25,13 @@ public class Plotbot {
 	public final static NXTRegulatedMotor penMotor = Motor.B;
 	public final static NXTRegulatedMotor wheelMotor = Motor.C;
 	
-	public final static RobotWheels robotWheels = new RobotWheels(wheelsSensor, wheelMotor, ARM_GEAR_RATIO, WHEEL_DIAMETER);
+	public final static RobotWheels robotWheels = new RobotWheels(wheelsSensor, wheelMotor, WHEEL_GEAR_RATIO, WHEEL_DIAMETER);
 	public final static RobotArm robotArm = new RobotArm(armSensor, armMotor, ARM_GEAR_RATIO);
 	public final static Pen pen = new Pen(penSensor, penMotor);
 	public final static Interface menu = new Interface();
 	
 	public static void main(String[] args){
-		boolean calibration = true;
+		boolean calibration = false;
 		
 		if(calibration){
 				GetMeasurements.start(ARM_GEAR_RATIO);
@@ -42,7 +42,7 @@ public class Plotbot {
 		
 		menu.startUp();
 		while (size == 0){
-			while (shape == ""){
+			while (shape.equals("")){
 				shape = menu.selectShape();
 			}
 			size = menu.selectSize();
@@ -52,11 +52,11 @@ public class Plotbot {
 			robotWheels.calibrateYPos();
 			
 		if (robotArm.getCalibrationStatus() && pen.getCalibrationStatus() && robotWheels.getCalibrationStatus()){
-			if (shape == "TUHH"){
+			if (shape.equals("TUHH")){
 				PlotTUHH plotTUHH = new PlotTUHH(size);
 				plotTUHH.plot();
 			}
-			if (shape == "square"){
+			if (shape.equals("square")){
 				Plotsquare plotSqr = new Plotsquare(size);
 				plotSqr.plot();
 			}

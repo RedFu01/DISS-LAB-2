@@ -10,7 +10,7 @@ public class RobotArm {
 	private TouchSensor touchSensorArm = null;
 	private NXTRegulatedMotor motor = null;
 	private int position =0 ;
-	private int speed = 720;
+	private int speed = 920;
 	private boolean calibrated = false;
 	private int sign = -1;
 	private int gearRatio = 1;
@@ -54,6 +54,7 @@ public class RobotArm {
 			
 		}
 		motor.stop();
+		motor.rotate(5544);
 		this.position = 0;
 		init();
 		calibrated=true;

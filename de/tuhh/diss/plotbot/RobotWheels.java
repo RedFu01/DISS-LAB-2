@@ -7,7 +7,7 @@ import lejos.nxt.NXTRegulatedMotor;
 import lejos.nxt.SensorPort;
 
 public class RobotWheels {
-	private final static int VALUE_FOR_LIGHT_SENSOR = 35; //range of constant: 0<lightValue<100
+	private final static int VALUE_FOR_LIGHT_SENSOR = 50; //range of constant: 0<lightValue<100
 	public LightSensor light = null;
 	private NXTRegulatedMotor motor = null;
 	
@@ -28,13 +28,13 @@ public class RobotWheels {
 	}
 	
 	public void drive(int distance){
-		int deg = (int)(gearRatio*distance*360/this.wheelCircumfence);
+		int deg = (int)((gearRatio*distance*360)/this.wheelCircumfence);
 		Motor.C.rotate(deg);
 		this.distance += distance;
 	}
 	public void driveToDistance(int distance){
 		int delta = this.distance - distance;
-		int deg = (int)(gearRatio*delta*360/this.wheelCircumfence);
+		int deg = (int)((gearRatio*delta*360)/this.wheelCircumfence);
 		Motor.C.rotate(deg);
 		this.distance = distance;
 	}

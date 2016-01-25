@@ -10,7 +10,7 @@ import lejos.nxt.TouchSensor;
 public class Pen {
 	private TouchSensor penSensor= null;
 	private NXTRegulatedMotor penMotor = null;
-	private final static int HEIGHT = 0;
+	private final static int HEIGHT = -500;
 	private int speed = 960;
 	private boolean isDown = false;
 	private boolean calibrated = false;
