@@ -78,6 +78,10 @@ public class PlotTUHH {
 		// 35 is offset from pen and light sensor + more offset due to angled arm
 	}
 	
+	public void gap(int size){
+		robot.drive((int) -Transform.textGap(this.size));
+	}
+	
 	public void plot() {
 		// TODO Auto-generated method stub
 		goToUpEdge();
@@ -89,19 +93,19 @@ public class PlotTUHH {
 		
 		plotStringT(this.size);
 		
-		robot.drive((int) -Transform.textGap(this.size));
+		gap(this.size);
 		
 		plotStringU(this.size);
 		
-		robot.drive((int) -Transform.textGap(this.size));
+		gap(this.size);
 		
 		plotStringH(this.size);
 		
-		robot.drive((int) -Transform.textGap(this.size));
+		gap(this.size);
 		
 		plotStringH(this.size);
 		
-		robot.drive(-100); // Get out from the drawing field
+		robot.drive((int) Transform.distanceTachoC(-100)); // Get out from the drawing field
 	}
 
 }

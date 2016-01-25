@@ -35,7 +35,7 @@ public class Plotline {
 	public void lineInX(int lineLengthX) {
 		double angledb;
 		int omegaC;
-		int distanceY;
+		int distanceY = 1;
 
 		angledb = Transform.sweepAngle(lineLengthX); // angle in 'double' type
 		
@@ -59,14 +59,12 @@ public class Plotline {
 		if (angle < 0) {
 			// Start drawing from right to middle
 			for (countAngle = 0; countAngle > angle; countAngle--) {
-				distanceY = (int) Transform.tachoC(1);
 				arm.move(1);
 				robot.drive(-distanceY);
 			}
 
 			// Start drawing from middle to left
 			for (countAngle = 0; countAngle > angle; countAngle--) {
-				distanceY = (int) Transform.tachoC(1);
 				arm.move(1);
 				robot.drive(distanceY);
 			}
@@ -78,14 +76,12 @@ public class Plotline {
 		else {
 			// Start drawing from left to middle
 			for (countAngle = 0; countAngle < angle; countAngle++) {
-				distanceY = (int) Transform.tachoC(1);
 				arm.move(-1);
 				robot.drive(-distanceY);
 			}
 
 			// Start drawing from middle to right
 			for (countAngle = 0; countAngle < angle; countAngle++) {
-				distanceY = (int) Transform.tachoC(1);
 				arm.move(-1);
 				robot.drive(distanceY);
 			}
