@@ -44,7 +44,7 @@ public class RobotArm {
 	 * @return position
 	 * @throws InterruptedException
 	 */
-	public void calibrateArm() throws InterruptedException{
+	public void calibrateArm(){
 		
 		while (!touchSensorArm.isPressed()) {
 			move(1);

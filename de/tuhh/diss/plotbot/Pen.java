@@ -43,15 +43,14 @@ public class Pen {
 	public boolean isUp(){
 		return isDown;
 	}
-	public void calibratePen() throws InterruptedException{
-		
+	
+	public void calibratePen(){	
 		up();
-		LCD.drawString("Pen calibrated", 3, 0);
+		//LCD.drawString("Pen calibrated", 3, 0);
 		calibrated = true;
-		
-		//wait(1000);
 		LCD.clear();
 	}
+	
 	private void stop(){
 		Motor.B.stop();
 	}

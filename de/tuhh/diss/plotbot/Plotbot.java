@@ -2,6 +2,8 @@ package de.tuhh.diss.plotbot;
 
 import lejos.nxt.Button;
 import lejos.nxt.LCD;
+import lejos.nxt.SensorPort;
+import lejos.nxt.TouchSensor;
 
 public class Plotbot {
 	private final static int ARM_GEAR_RATIO = 84;
@@ -14,16 +16,12 @@ public class Plotbot {
 		boolean calibration = true;
 		
 		if(calibration){
-			try {
 				GetMeasurements.start(ARM_GEAR_RATIO);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}else{
 		Interface menu = new Interface();
 		RobotArm arm = new RobotArm(ARM_GEAR_RATIO);
 		Pen pen = new Pen();
+		RobotWheels rw = new RobotWheels(ARM_GEAR_RATIO, WHEEL_DIAMETER);
 		
 		int size = 0;
 		String shape = "";
@@ -35,19 +33,27 @@ public class Plotbot {
 			}
 			size = menu.selectSize();
 		}
-		try {
 			pen.calibratePen();
 			arm.calibrateArm();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		if (arm.getCalibrationStatus() && pen.getCalibrationStatus()){
+			rw.calibrateYPos();
 			
-		Plotsquare plotter = new Plotsquare(size);
-		plotter.plot();
+		if (arm.getCalibrationStatus() && pen.getCalibrationStatus() && rw.getCalibrationStatus()){
+			if (shape == "TUHH"){
+				PlotTUHH plotTUHH = new PlotTUHH(size);
+				plotTUHH.plot();
+			}
+			if (shape == "square"){
+				Plotsquare plotSqr = new Plotsquare(size);
+				plotSqr.plot();
+			}
+		}else{
+			LCD.drawString("calibration:", 0, 0);
+			LCD.drawString("failed!", 1, 0);
+			LCD.drawString("start again", 5, 0);
+		}
 
 		
 		}
 	}
 }
-}
+

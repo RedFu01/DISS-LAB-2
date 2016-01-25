@@ -11,24 +11,31 @@ import lejos.nxt.LCD;
  *
  */
 public class Interface {
-	
+	/**
+	 * startUp(): greetings mask. shows the programm started
+	 */
 	public void startUp(){
 		LCD.clear();
 		LCD.drawString("**Hello Mate !**",0,4);
 		Button.waitForAnyPress();
 	}
 	
+	/**
+	 * selectShape(): user interaction to select the picture/shape that is to be drawn
+	 * @return shape
+	 */
 	public String selectShape(){
 		String shape = "";
 		LCD.clear();
 		LCD.drawString("Select Shape!",1,0);
 		LCD.drawString("Button to press:", 1, 1);
-		LCD.drawString("Left: rectangle",1,3);
+		LCD.drawString("Left: square",1,3);
 		LCD.drawString("Right: TUHH",1,4);
 		Button.waitForAnyPress();
 		if(Button.LEFT.isDown()){
-			shape = "rectangle";
-		}else if(Button.RIGHT.isDown()){
+			shape = "square";
+		}
+		if(Button.RIGHT.isDown()){
 			shape = "TUHH";
 		}
 		showChoice(shape);
@@ -36,8 +43,8 @@ public class Interface {
 		return shape;
 	}
 	/**
-	 * selectSize()
-	 * 
+	 * selectSize(): user interface to select the size of the picture/shape to be drawn
+	 * @return size
 	 */
 	public int selectSize(){
 		int size = 0;
@@ -84,11 +91,20 @@ public class Interface {
 	private void showChoice(String shape){
 		LCD.drawString("Your choice:", 0, 6);
 		LCD.drawString(shape, 0, 7);
+		LCD.drawString("press button", 5, 0);
 		Button.waitForAnyPress();
 	}
+	
+	/**
+	 * showInt(): display a parameter number with some extra text.
+	 * @param int number
+	 * @return void 
+	 */
 	private void showInt(int number){
 		LCD.drawString("Your choice:", 0, 6);
-		LCD.drawInt(number, 0, 7);
+		LCD.drawInt(number, 0, 7, 3);
+		LCD.drawString("press button", 5, 0);
 		Button.waitForAnyPress();
+		
 	}
 }
