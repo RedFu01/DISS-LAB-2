@@ -12,7 +12,7 @@ public class GetMeasurements {
  */
 	public static void start(int ARM_GEAR_RATIO){
 		
-		int angleArm = 0;//measureArm(ARM_GEAR_RATIO);
+		int angleArm = measureArm(ARM_GEAR_RATIO);
 		int anglePen = measurePen();
 		int[] lightValues = new int[2];
 		
