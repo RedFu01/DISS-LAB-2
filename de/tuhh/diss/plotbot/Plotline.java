@@ -41,16 +41,16 @@ public class Plotline {
 		
 		// Right to left drawing or left to right depends on +/- length of X
 		
-		Plotbot.robotArm.init();
+		Plotbot.robotArm.calibrateArm();
 		Plotbot.robotArm.moveTo(angle);
 		Plotbot.pen.down();
 		
 		// 1st half of the line in x-dir
-		Plotbot.robotArm.move(-angle);
+		Plotbot.robotArm.move(-angle,true);
 		Plotbot.robotWheels.drive((int)-distanceY);
 		
 		// 2nd half of the line in x-dir
-		Plotbot.robotArm.move(-angle);
+		Plotbot.robotArm.move(-angle, true);
 		Plotbot.robotWheels.drive((int)distanceY);
 					
 		Plotbot.pen.up();

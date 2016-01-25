@@ -56,7 +56,7 @@ public class RobotWheels {
 			}
 			Motor.C.stop();
 		}
-		drive(25);
+		//drive(25);
 		resetDistance();
 		calibrated = true;
 	}

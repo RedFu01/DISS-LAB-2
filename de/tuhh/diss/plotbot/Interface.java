@@ -47,7 +47,7 @@ public class Interface {
 	 * @return size
 	 */
 	public int selectSize(){
-		int size = 0;
+		int size = 50;
 		LCD.clear();
 		LCD.drawString("Select Size!(mm)", 0, 0);
 		LCD.drawString("Right -> +", 0, 1);

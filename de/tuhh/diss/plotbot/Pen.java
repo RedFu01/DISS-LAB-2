@@ -23,13 +23,13 @@ public class Pen {
 	}
 
 	public void init(){
-		Motor.B.resetTachoCount();
+		penMotor.resetTachoCount();
 		this.position = 0;
 	}
 	
 	public void move(int degrees){
-		Motor.B.setSpeed(speed);
-		Motor.B.rotate(sign*degrees, false);
+		penMotor.setSpeed(speed);
+		penMotor.rotate(sign*degrees, false);
 		stop();
 		this.position += degrees; 
 		
@@ -56,20 +56,29 @@ public class Pen {
 	public void calibratePen(){	
 		up();
 		penMotor.resetTachoCount();
-		penMotor.rotate(-20);
 		penMotor.backward();
+		while(penSensor.isPressed()){
+			
+		}
 		while(!penSensor.isPressed()){
 			
 		}
-		stop();
-		HEIGHT = penMotor.getTachoCount()/2;
+		penMotor.stop();
+		HEIGHT = penMotor.getTachoCount()/-2;
+		LCD.drawString(""+HEIGHT,0,4);
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		up();
 		calibrated = true;
 		LCD.clear();
 	}
 	
 	private void stop(){
-		Motor.B.stop();
+		penMotor.stop();
 	}
 	
 	public boolean getCalibrationStatus(){

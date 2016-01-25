@@ -37,15 +37,17 @@ public class Plotbot {
 				GetMeasurements.start(ARM_GEAR_RATIO);
 		}else{
 			
-		int size = 0;
+		int size = 50;
+		boolean sizeSelected = false;
 		String shape = "";
 		
 		menu.startUp();
-		while (size == 0){
+		while (!sizeSelected){
 			while (shape.equals("")){
 				shape = menu.selectShape();
 			}
 			size = menu.selectSize();
+			sizeSelected = true;
 		}
 			pen.calibratePen();
 			robotArm.calibrateArm();

@@ -14,7 +14,7 @@ public class RobotArm {
 	private boolean calibrated = false;
 	private int sign = -1;
 	private int gearRatio = 1;
-	private int startAngle = 5544;
+	private int startAngle = 5044;
 	
 	public RobotArm(TouchSensor sensor, NXTRegulatedMotor motor, int gearRatio){
 		this.gearRatio = gearRatio;
@@ -28,15 +28,23 @@ public class RobotArm {
 	}
 	
 	public void moveTo(int degree){
+		moveTo(degree, false);
+	}
+	
+	public void move(int degree){
+		move(degree, false);
+	}
+	
+	public void moveTo(int degree, boolean imideatReturn){
 		motor.setSpeed(speed);
 		
 		int degrees = this.position - degree;
-		motor.rotate(sign*degrees*gearRatio, false);
+		motor.rotate(sign*degrees*gearRatio, imideatReturn);
 		this.position = degree;
 	}
-	public void move(int degrees){
+	public void move(int degrees, boolean imideatReturn){
 		motor.setSpeed(speed);
-		motor.rotate(sign*degrees*gearRatio, false);
+		motor.rotate(sign*degrees*gearRatio, imideatReturn);
 		this.position += degrees; 
 		
 	}
