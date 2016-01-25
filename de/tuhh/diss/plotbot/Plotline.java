@@ -5,10 +5,60 @@ import lejos.nxt.Motor;
 import lejos.nxt.LCD;
 
 public class Plotline {
+	
+	public static final int speedMotorC = 450; // Default speed
+
+	public void lineInY(int lineLengthY) {
+		int distanceY = (int) Transform.distanceTachoC(lineLengthY);
+
+		Motor.C.setSpeed(speedMotorC);
+		Motor.C.resetTachoCount();
+		
+		Plotbot.pen.down();
+		Plotbot.robotWheels.tachoDriveTo(distanceY);
+		Plotbot.pen.up();
+
+	}
+
+	public void lineInX(int lineLengthX) {
+		double angledb;
+		int omegaC;
+		double distanceY;
+
+		angledb = Transform.sweepAngle(lineLengthX); // angle in 'double' type
+		
+		distanceY = Transform.tachoC(Math.abs(angledb));
+		
+		omegaC = (int) Transform.omegaMotorC(angledb, Motor.A.getSpeed());
+		
+		// Cannot give exact angle movement due to double vs. int
+		int angle = (int) Math.round(angledb); // angle in 'int' type
+		
+		int countAngle;
+
+		// Motors' speed setup, synchronized C depends on A
+		Motor.C.setSpeed(omegaC);
+		
+		// Right to left drawing or left to right depends on +/- length of X
+		
+		Plotbot.robotArm.init();
+		Plotbot.robotArm.moveTo(angle);
+		Plotbot.pen.down();
+		
+		// 1st half of the line in x-dir
+		Plotbot.robotArm.move(-angle);
+		Plotbot.robotWheels.tachoDrive(-distanceY);
+		
+		// 2nd half of the line in x-dir
+		Plotbot.robotArm.move(-angle);
+		Plotbot.robotWheels.tachoDrive(distanceY);
+					
+		Plotbot.pen.up();
+	}
 
 	// Create objects
 
-	public static final int speedMotorC = 450; // Default speed
+	/*public static final int speedMotorC = 450; // Default speed
 
 	public void lineInY(int lineLengthY) {
 		int lengthY = lineLengthY;
@@ -84,5 +134,5 @@ public class Plotline {
 			
 			Plotbot.pen.up();
 		}
-	}
+	}*/
 }
