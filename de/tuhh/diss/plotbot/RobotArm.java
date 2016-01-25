@@ -14,6 +14,7 @@ public class RobotArm {
 	private boolean calibrated = false;
 	private int sign = -1;
 	private int gearRatio = 1;
+	private int startAngle = 5544;
 	
 	public RobotArm(TouchSensor sensor, NXTRegulatedMotor motor, int gearRatio){
 		this.gearRatio = gearRatio;
@@ -54,7 +55,7 @@ public class RobotArm {
 			
 		}
 		motor.stop();
-		motor.rotate(5544);
+		motor.rotate(startAngle);
 		this.position = 0;
 		init();
 		calibrated=true;
