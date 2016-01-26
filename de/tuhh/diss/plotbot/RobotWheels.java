@@ -69,58 +69,6 @@ public class RobotWheels {
 	
 	
 	/**/
-	void tachoDrive(double distance) {
-		double tacho_amount = Transform.distanceTachoC(distance);
-
-		Motor.C.resetTachoCount();
-
-		if (distance > 0) {
-			Motor.C.forward();
-
-			while (Motor.C.getTachoCount() < tacho_amount && Motor.C.isMoving() && !Button.ESCAPE.isDown()) {
-				LCD.drawInt((int) Transform.distanceC(Motor.C.getTachoCount()), 0, 0);
-			}
-
-			Motor.C.stop();
-		}
-
-		else {
-			Motor.C.backward();
-
-			while (Motor.C.getTachoCount() > tacho_amount && Motor.C.isMoving() && !Button.ESCAPE.isDown()) {
-				LCD.drawInt((int) Transform.distanceC(Motor.C.getTachoCount()), 0, 0);
-			}
-
-			Motor.C.stop();
-		}
-
-	}
-
-	void tachoDriveTo(double distance) {
-		double delta = this.distance - distance;
-		double tacho_amount = Transform.distanceTachoC(delta);
-
-		Motor.C.resetTachoCount();
-
-		if (delta > 0) {
-			Motor.C.forward();
-
-			while (Motor.C.getTachoCount() < tacho_amount && Motor.C.isMoving() && !Button.ESCAPE.isDown()) {
-				LCD.drawInt((int) Transform.distanceC(Motor.C.getTachoCount()), 0, 0);
-			}
-
-			Motor.C.stop();
-		}
-
-		else {
-			Motor.C.backward();
-
-			while (Motor.C.getTachoCount() > tacho_amount && Motor.C.isMoving() && !Button.ESCAPE.isDown()) {
-				LCD.drawInt((int) Transform.distanceC(Motor.C.getTachoCount()), 0, 0);
-			}
-
-			Motor.C.stop();
-		}
-	}
+	
 	
 }
