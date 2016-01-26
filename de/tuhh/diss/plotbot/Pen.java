@@ -67,7 +67,7 @@ public class Pen {
 			
 		}
 		penMotor.stop();
-		HEIGHT = penMotor.getTachoCount()/-2;
+		HEIGHT = penMotor.getTachoCount()/2;
 		LCD.drawString(""+HEIGHT,0,4);
 		try {
 			Thread.sleep(2000);
