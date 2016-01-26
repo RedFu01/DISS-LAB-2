@@ -38,7 +38,7 @@ public class PlotTUHH {
 		// Draw from left to right
 		T.lineInX(-bodyT);
 		
-		int mid = (int) Math.round(headT / 2);
+		int mid = Math.round(headT / 2);
 		Plotbot.robotWheels.drive(mid);
 		T.lineInY(-headT); // backward
 		
