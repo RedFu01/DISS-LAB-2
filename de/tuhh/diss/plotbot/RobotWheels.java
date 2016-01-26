@@ -35,9 +35,8 @@ public class RobotWheels {
 	}
 	public void driveToDistance(int distance){
 		int delta = this.distance - distance;
-		int deg = (int)((gearRatio*delta*360)/this.wheelCircumfence);
-		Motor.C.rotate(deg);
-		this.distance = distance;
+		drive(delta);
+		
 	}
 
 	public void calibrateYPos(){
