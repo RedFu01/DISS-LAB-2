@@ -13,37 +13,24 @@ public class Transform {
 		return Math.toDegrees(Math.asin(size / (2 * ARM2PEN))); // in degrees and mm
 	}
 	
-	// Synchronization based on speed
-	public static double syncA2C(double omegaA) {
-		return (GEARRATIOA / GEARRATIOC) * (ARM2PEN / WHEELRADIUS) * omegaA;
-	}
-	
-	// TachoCount of Motor C movement in y-axis to accommodate straight line in x-axis
+	// Movement in Y-axis to accommodate drawing in X-axis
 	// Synchronization based on same time to reach mid point
-	public static double tachoC(double angle) {
-		return (80.0 - 80.0 * Math.cos(Math.toRadians(angle))) / WHEELCIRCUMFERENCE * GEARRATIOC * 360;
+	public static double offsetYdueToX(double angle) {
+		return (80.0 - 80.0 * Math.cos(Math.toRadians(angle)));
 	}
 	
-	public static double distanceTachoC(double distance) {
-		return distance / WHEELCIRCUMFERENCE * GEARRATIOC * 360;
-	}
-	
-	public static double distanceC(double angle) {
+	public static double wheelDistance(double angle) {
 		return ( angle * WHEELCIRCUMFERENCE ) / ( 360 * GEARRATIOC );
 	}
 
-	// Work on linear velocity or angular velocity?
-	public static double carVel(double angle, double armVel) {
-		return ((1.0 - Math.cos(Math.toRadians(angle))) / Math.sin(Math.toRadians(angle))) * armVel;
-	}
-
 	// Motor C depends and synchronizes to Motor A
-	public static double omegaMotorA(double armVel) {
-		return (GEARRATIOA * armVel) / ARM2PEN;
-	}
-
 	public static double omegaMotorC(double angle, double omegaMotorA) {
 		return ((1.0 - Math.cos(Math.toRadians(angle))) / Math.sin(Math.toRadians(angle))) * (GEARRATIOC / GEARRATIOA) * (ARM2PEN / WHEELRADIUS) * omegaMotorA;
+	}
+	
+	// Motor C depends and synchronizes to Motor A, alternative
+	public static double altOmegaMotorC(double angle, double omegaMotorA) {
+		return ((GEARRATIOC / GEARRATIOA) * (ARM2PEN / WHEELRADIUS) * omegaMotorA * Math.sin(Math.toRadians(angle)));
 	}
 
 	// TUHH string plotting dimensions

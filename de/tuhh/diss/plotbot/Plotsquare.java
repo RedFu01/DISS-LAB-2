@@ -25,11 +25,18 @@ public class Plotsquare {
 	public void goToUpEdge() {
 		double angle = Transform.sweepAngle(this.size);
 		
-		Motor.C.setSpeed(speedMotorC);
-		Plotbot.robotWheels.drive(edge + offset + (int) Transform.tachoC(angle)); 
-		// 35 is offset from pen and light sensor + more offset due to angled arm
+		Plotbot.wheelMotor.setSpeed(speedMotorC);
+		Plotbot.robotWheels.drive(edge + (int) Transform.offsetYdueToX(angle)); 
 	}
 
+/*	public void goToUpEdge() {
+		double angle = Transform.sweepAngle(this.size);
+		
+		Plotbot.wheelMotor.setSpeed(speedMotorC);
+		Plotbot.robotWheels.drive(edge + offset + (int) Transform.distYbyX(angle)); 
+		// 35 is offset from pen and light sensor + more offset due to angled arm
+	}*/
+	
 	public void plot() {
 		// TODO Auto-generated method stub
 

@@ -38,7 +38,7 @@ public class PlotTUHH {
 		// Draw from left to right
 		T.lineInX(-bodyT);
 		
-		int mid = (int) Transform.distanceTachoC(headT / 2);
+		int mid = (int) Math.round(headT / 2);
 		Plotbot.robotWheels.drive(mid);
 		T.lineInY(-headT); // backward
 		
@@ -56,10 +56,10 @@ public class PlotTUHH {
 	public void plotStringH(int size) {
 		int bodyH = (int) Transform.textWidth(size);
 		int middleH = size;
-		int reposition = (int) Transform.tachoC(size);
+		int reposition = (int) Transform.offsetYdueToX(size);
 		
 		H.lineInX(bodyH); // right to left
-		Plotbot.robotArm.init();
+		Plotbot.robotArm.moveTo(0);
 		Plotbot.robotWheels.drive(-reposition);
 		H.lineInY(-middleH); // backwards
 		Plotbot.robotWheels.drive(reposition);
@@ -70,10 +70,17 @@ public class PlotTUHH {
 	public void goToUpEdge() {
 		double angle = Transform.sweepAngle(this.size);
 		
-		Plotbot.robotWheels.setSpeed(speedMotorC);
-		Plotbot.robotWheels.drive(edge + offset + (int) Transform.tachoC(angle)); 
-		// 35 is offset from pen and light sensor + more offset due to angled arm
+		Plotbot.wheelMotor.setSpeed(speedMotorC);
+		Plotbot.robotWheels.drive(edge + (int) Transform.offsetYdueToX(angle)); 
 	}
+
+/*	public void goToUpEdge() {
+		double angle = Transform.sweepAngle(this.size);
+		
+		Plotbot.wheelMotor.setSpeed(speedMotorC);
+		Plotbot.robotWheels.drive(edge + offset + (int) Transform.distYbyX(angle)); 
+		// 35 is offset from pen and light sensor + more offset due to angled arm
+	}*/
 	
 	public void gap(int size){
 		Plotbot.robotWheels.drive((int) -Transform.textGap(this.size));
@@ -85,8 +92,8 @@ public class PlotTUHH {
 		plotBorder(this.size);
 		
 		// Pen placement after draw the border
-		Motor.A.rotate((int) Transform.shiftAngle(this.size));
-		Plotbot.robotWheels.drive((int) -(Transform.shiftPosition(this.size) + Transform.edgeGap(this.size) + Transform.distanceTachoC(Transform.textWidth(size) / 2)));
+		Plotbot.armMotor.rotate((int) Transform.shiftAngle(this.size));
+		Plotbot.robotWheels.drive((int) -(Transform.shiftPosition(this.size) + Transform.edgeGap(this.size) + (Transform.textWidth(size) / 2)));
 		
 		plotStringT(this.size);
 		
@@ -102,7 +109,7 @@ public class PlotTUHH {
 		
 		plotStringH(this.size);
 		
-		Plotbot.robotWheels.drive((int) Transform.distanceTachoC(-100)); // Get out from the drawing field
+		Plotbot.robotWheels.drive((int) Transform.wheelDistance(-100)); // Get out from the drawing field
 	}
 
 }
