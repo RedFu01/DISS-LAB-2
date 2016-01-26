@@ -13,7 +13,7 @@ public class RobotWheels {
 	private NXTRegulatedMotor motor = null;
 	
 	private int distance =0;
-	private double wheelCircumfence = 28*2*Math.PI;
+	private double wheelCircumfence = 56*Math.PI;
 	private int gearRatio = 5;
 	private boolean calibrated = false;
 	
@@ -21,9 +21,9 @@ public class RobotWheels {
 		this.motor.setSpeed(speed);
 	}
 	
-	public RobotWheels(LightSensor sensor,NXTRegulatedMotor motor, int gearRatio, int wheelRadius ){
+	public RobotWheels(LightSensor sensor,NXTRegulatedMotor motor, int gearRatio, int wheeldiameter ){
 		this.gearRatio = gearRatio;
-		this.wheelCircumfence =  2* Math.PI * wheelRadius;
+		this.wheelCircumfence =  Math.PI * wheeldiameter;
 		this.light = sensor;
 		this.motor = motor;
 	}
