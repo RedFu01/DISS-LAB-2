@@ -57,8 +57,11 @@ public class Pen {
 		up();
 		penMotor.resetTachoCount();
 		penMotor.backward();
-		while(penSensor.isPressed()){
-			
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		while(!penSensor.isPressed()){
 			
