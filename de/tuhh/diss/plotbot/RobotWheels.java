@@ -30,7 +30,7 @@ public class RobotWheels {
 	
 	public void drive(int distance){
 		int deg = (int)((gearRatio*distance*360)/this.wheelCircumfence);
-		Motor.C.rotate(deg);
+		motor.rotate(deg);
 		this.distance += distance;
 	}
 	public void driveToDistance(int distance){
@@ -43,19 +43,19 @@ public class RobotWheels {
 		light.setLow(145);
 		light.setHigh(890);
 		if(light.getLightValue()<VALUE_FOR_LIGHT_SENSOR){
-			Motor.C.forward();
+			motor.forward();
 			while(light.getLightValue() < VALUE_FOR_LIGHT_SENSOR){
 			}
-			Motor.C.stop();
+			motor.stop();
 			drive(10);
 			calibrateYPos();
 		}else{
-			Motor.C.backward();
+			motor.backward();
 			while(light.getLightValue() >= VALUE_FOR_LIGHT_SENSOR){
 			}
-			Motor.C.stop();
+			motor.stop();
 		}
-		//drive(25);
+		drive(25);
 		resetDistance();
 		calibrated = true;
 	}
@@ -65,9 +65,4 @@ public class RobotWheels {
 	public boolean getCalibrationStatus(){
 		return calibrated;
 	}
-	
-	
-	/**/
-	
-	
 }

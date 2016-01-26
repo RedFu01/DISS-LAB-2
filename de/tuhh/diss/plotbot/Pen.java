@@ -9,7 +9,7 @@ import lejos.nxt.TouchSensor;
 
 public class Pen {
 	private TouchSensor penSensor= null;
-	private NXTRegulatedMotor penMotor = null;
+	private NXTRegulatedMotor motor = null;
 	private int HEIGHT = 0;
 	private int speed = 660;
 	private boolean isDown = false;
@@ -19,17 +19,17 @@ public class Pen {
 	
 	public Pen(TouchSensor penSensor, NXTRegulatedMotor penMotor){
 		this.penSensor = penSensor;
-		this.penMotor = penMotor;
+		this.motor = penMotor;
 	}
 
 	public void init(){
-		penMotor.resetTachoCount();
+		motor.resetTachoCount();
 		this.position = 0;
 	}
 	
 	public void move(int degrees){
-		penMotor.setSpeed(speed);
-		penMotor.rotate(sign*degrees, false);
+		motor.setSpeed(speed);
+		motor.rotate(sign*degrees, false);
 		stop();
 		this.position += degrees; 
 		
@@ -41,11 +41,11 @@ public class Pen {
 		}
 	}
 	public void up(){
-		penMotor.forward();
+		motor.forward();
 		while(!penSensor.isPressed()){
 			
 		}
-		penMotor.stop();
+		motor.stop();
 		isDown = false;
 	}
 	
@@ -55,18 +55,18 @@ public class Pen {
 	
 	public void calibratePen(){	
 		up();
-		penMotor.resetTachoCount();
-		penMotor.backward();
+		motor.resetTachoCount();
+		motor.backward();
 		while(penSensor.isPressed()){
 			
 		}
 		while(!penSensor.isPressed()){
 			
 		}
-		penMotor.stop();
-		HEIGHT = penMotor.getTachoCount()/2;
+		motor.stop();
+		HEIGHT = motor.getTachoCount()/2;
 
-		penMotor.forward();
+		motor.forward();
 		while(penSensor.isPressed()){
 			
 		}
@@ -76,7 +76,7 @@ public class Pen {
 	}
 	
 	private void stop(){
-		penMotor.stop();
+		motor.stop();
 	}
 	
 	public boolean getCalibrationStatus(){
