@@ -125,6 +125,7 @@ public class Plotline {
 		Plotbot.robotArm.moveTo(angle);
 		Plotbot.pen.down();
 		
+		Plotbot.armMotor.resetTachoCount();
 		Plotbot.robotArm.move(-2 * angle, true);
 		
 		tetha = angle;
@@ -140,7 +141,12 @@ public class Plotline {
 				else {
 					Plotbot.wheelMotor.forward();
 				}
-				tetha--;			
+				
+				tetha = tetha - Plotbot.armMotor.getTachoCount();
+				
+				if (tetha == 0) {
+					Plotbot.armMotor.resetTachoCount();
+				}
 			}
 		}
 		
@@ -156,7 +162,11 @@ public class Plotline {
 				else {
 					Plotbot.wheelMotor.forward();
 				}
-				tetha++;			
+				tetha = tetha + Plotbot.armMotor.getTachoCount();
+				
+				if (tetha == 0) {
+					Plotbot.armMotor.resetTachoCount();
+				}
 			}	
 		}
 		
