@@ -53,6 +53,10 @@ public class Plotbot {
 			robotArm.calibrateArm();
 			robotWheels.calibrateYPos();
 			
+			LCD.drawString("calibrated!", 0, 0);
+			LCD.drawString("press any button", 0, 1);
+			Button.waitForAnyPress();
+			
 		if (robotArm.getCalibrationStatus() && pen.getCalibrationStatus() && robotWheels.getCalibrationStatus()){
 			if (shape.equals("TUHH")){
 				PlotTUHH plotTUHH = new PlotTUHH(size);
