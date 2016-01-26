@@ -73,39 +73,42 @@ public class Plotline {
 		Plotbot.robotArm.moveTo(angle);
 		Plotbot.pen.down();
 		
-		// Right to Left drawing
-		if (angle > 0) {
-			// Start drawing from right to middle
-			for (countAngle = 0; countAngle > -angle; countAngle = countAngle - shift) {
-				Plotbot.robotArm.move(-shift);
-				Plotbot.robotWheels.drive(-distanceY);
-			}
-
-			// Start drawing from middle to left
-			for (countAngle = 0; countAngle > -angle; countAngle = countAngle - shift) {
-				Plotbot.robotArm.move(-shift);
-				Plotbot.robotWheels.drive(distanceY);
-			}
-			
-			Plotbot.pen.up();
-		}
-		
-		// Left to Right drawing
-		else {
-			// Start drawing from left to middle
-			for (countAngle = 0; countAngle > -angle; countAngle = countAngle + shift) {
-				Plotbot.robotArm.move(shift);
-				Plotbot.robotWheels.drive(-distanceY);
-			}
-
-			// Start drawing from middle to right
-			for (countAngle = 0; countAngle < angle; countAngle = countAngle + shift) {
-				Plotbot.robotArm.move(shift);
-				Plotbot.robotWheels.drive(distanceY);
+		while(!Plotbot.armSensor.isPressed()) {
+			// Right to Left drawing
+			if (angle > 0) {
+				// Start drawing from right to middle
+				for (countAngle = 0; countAngle > -angle; countAngle = countAngle - shift) {
+					Plotbot.robotArm.move(-shift);
+					Plotbot.robotWheels.drive(-distanceY);
+				}
+	
+				// Start drawing from middle to left
+				for (countAngle = 0; countAngle > -angle; countAngle = countAngle - shift) {
+					Plotbot.robotArm.move(-shift);
+					Plotbot.robotWheels.drive(distanceY);
+				}
+				
+				Plotbot.pen.up();
 			}
 			
-			Plotbot.pen.up();
+			// Left to Right drawing
+			else {
+				// Start drawing from left to middle
+				for (countAngle = 0; countAngle > -angle; countAngle = countAngle + shift) {
+					Plotbot.robotArm.move(shift);
+					Plotbot.robotWheels.drive(-distanceY);
+				}
+	
+				// Start drawing from middle to right
+				for (countAngle = 0; countAngle < angle; countAngle = countAngle + shift) {
+					Plotbot.robotArm.move(shift);
+					Plotbot.robotWheels.drive(distanceY);
+				}
+				
+				Plotbot.pen.up();
+			}
 		}
+		Plotbot.armMotor.stop();
 	}*/
 	
 /* ------------------------------------------------ ALTERNATIVE 3 ------------------------------------------------ */	
@@ -127,6 +130,7 @@ public class Plotline {
 		
 		Plotbot.armMotor.resetTachoCount();
 		while(!Plotbot.armSensor.isPressed()) {
+			
 			Plotbot.robotArm.moveTo(-Plotbot.robotArm.getPosition(), true);
 			
 			tetha = angle;
@@ -143,7 +147,16 @@ public class Plotline {
 						Plotbot.wheelMotor.forward();
 					}
 					
-					tetha = tetha - Plotbot.armMotor.getTachoCount();
+					tetha = tetha - Plotbot.robotArm.getPosition();
+					
+					try {
+						Thread.sleep(300);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					Plotbot.wheelMotor.stop();
 					
 					if (tetha == 0) {
 						Plotbot.armMotor.resetTachoCount();
@@ -165,7 +178,16 @@ public class Plotline {
 					else {
 						Plotbot.wheelMotor.forward();
 					}
-					tetha = tetha + Plotbot.armMotor.getTachoCount();
+					tetha = tetha + Plotbot.robotArm.getPosition();
+					
+					try {
+						Thread.sleep(300);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					Plotbot.wheelMotor.stop();
 					
 					if (tetha == 0) {
 						Plotbot.armMotor.resetTachoCount();
