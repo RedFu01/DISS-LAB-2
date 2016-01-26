@@ -14,7 +14,7 @@ public class RobotArm {
 	private boolean calibrated = false;
 	private int sign = -1;
 	private int gearRatio = 1;
-	private int startAngle = 5000;
+	private int startAngle = 4900;
 	
 	public RobotArm(TouchSensor sensor, NXTRegulatedMotor motor, int gearRatio){
 		this.gearRatio = gearRatio;
@@ -38,18 +38,27 @@ public class RobotArm {
 	public void moveTo(int degree, boolean imideatReturn){
 		motor.setSpeed(speed);
 		
-		int degrees = this.position - degree;
+		int degrees = this.getPosition() - degree;
 		motor.rotate(sign*degrees*gearRatio, imideatReturn);
-		this.position = degree;
 	}
 	public void move(int degrees, boolean imideatReturn){
 		motor.setSpeed(speed);
 		motor.rotate(sign*degrees*gearRatio, imideatReturn);
-		this.position += degrees; 
 		
 	}
+	
+	public void move(double degrees){
+		move(degrees,false);
+	}
+	
+	public void move(double degrees, boolean imideatReturn){
+		motor.setSpeed(speed);
+		motor.rotate((int)(sign*degrees*gearRatio), imideatReturn);
+		
+	}
+	
 	public int getPosition(){
-		return this.position;
+		return (motor.getTachoCount() /gearRatio);
 	}
 	
 	/**
@@ -58,6 +67,8 @@ public class RobotArm {
 	 * @throws InterruptedException
 	 */
 	public void calibrateArm(){
+		int saveSpeed=motor.getSpeed();
+		motor.setSpeed(2*saveSpeed);
 		motor.backward();
 		while (!touchSensorArm.isPressed()){
 			
@@ -67,6 +78,7 @@ public class RobotArm {
 		this.position = 0;
 		init();
 		calibrated=true;
+		motor.setSpeed(saveSpeed);
 	}
 	
 	public boolean getCalibrationStatus(){

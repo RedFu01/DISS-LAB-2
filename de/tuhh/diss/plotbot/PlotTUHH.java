@@ -4,7 +4,7 @@ import lejos.nxt.Motor;
 
 public class PlotTUHH {
 	public static final int edge = 230;
-	public static final int offset = 35; // Distance from pen to light sensor
+	public static final int offset = 25; // Distance from pen to light sensor
 	public static final int speedMotorC = 450;
 	public int size;
 	
@@ -25,9 +25,9 @@ public class PlotTUHH {
 		int borderHeight = (int) Transform.borderHeight(size);
 		int borderWidth = (int) Transform.borderWidth(size);
 		
-		border.lineInX(-borderHeight); // draw in x-dir to the right
+		border.lineInX(borderHeight); // draw in x-dir to the right
 		border.lineInY(-borderWidth);  // draw in y-dir backward
-		border.lineInX(borderHeight); // draw in x-dir to the left
+		border.lineInX(-borderHeight); // draw in x-dir to the left
 		border.lineInY(borderWidth);  // draw in y-dir forward
 	}
 	
@@ -36,7 +36,7 @@ public class PlotTUHH {
 		int bodyT = size;
 		
 		// Draw from left to right
-		T.lineInX(-bodyT);
+		T.lineInX(bodyT);
 		
 		int mid = Math.round(headT / 2);
 		Plotbot.robotWheels.drive(mid);
@@ -45,25 +45,25 @@ public class PlotTUHH {
 	}
 	
 	public void plotStringU(int size) {
-		int bodyU = (int) Transform.textWidth(size);
-		int baseU = size;
+		int bodyU = size;
+		int baseU = (int) Transform.textWidth(size);
 		
-		U.lineInX(bodyU); // right to left
+		U.lineInX(-bodyU); // right to left
 		U.lineInY(-baseU); // go backward
-		U.lineInX(-bodyU); // left to right
+		U.lineInX(bodyU); // left to right
 	}
 	
 	public void plotStringH(int size) {
-		int bodyH = (int) Transform.textWidth(size);
-		int middleH = size;
-		int reposition = (int) Transform.offsetYdueToX(size);
+		int bodyH = size;
+		int middleH = (int) Transform.textWidth(size);
+		int reposition = (int) Transform.offsetYdueToX(Transform.sweepAngle(size));
 		
-		H.lineInX(bodyH); // right to left
+		H.lineInX(-bodyH); // right to left
 		Plotbot.robotArm.moveTo(0);
 		Plotbot.robotWheels.drive(-reposition);
 		H.lineInY(-middleH); // backwards
 		Plotbot.robotWheels.drive(reposition);
-		H.lineInX(-bodyH); // left to right
+		H.lineInX(bodyH); // left to right
 		
 	}
 
@@ -74,14 +74,6 @@ public class PlotTUHH {
 		Plotbot.robotWheels.drive(edge + (int) Transform.offsetYdueToX(angle)); 
 	}
 
-/*	public void goToUpEdge() {
-		double angle = Transform.sweepAngle(this.size);
-		
-		Plotbot.wheelMotor.setSpeed(speedMotorC);
-		Plotbot.robotWheels.drive(edge + offset + (int) Transform.distYbyX(angle)); 
-		// 35 is offset from pen and light sensor + more offset due to angled arm
-	}*/
-	
 	public void gap(int size){
 		Plotbot.robotWheels.drive((int) -Transform.textGap(this.size));
 	}

@@ -29,16 +29,38 @@ public class RobotWheels {
 	}
 	
 	public void drive(int distance){
-		int deg = (int)((gearRatio*distance*360)/this.wheelCircumfence);
-		motor.rotate(deg);
-		this.distance += distance;
+		drive(distance, false);
 	}
+	
+	public void drive(double distance){
+		drive(distance, false);
+	}
+	
 	public void driveToDistance(int distance){
-		int delta = this.distance - distance;
-		drive(delta);
-		
+		driveToDistance(distance, false);
 	}
 
+	public void drive(int distance, boolean immediateReturn){
+		motor.stop();
+		int deg = (int)((gearRatio*distance*360)/this.wheelCircumfence);
+		motor.rotate(deg, immediateReturn);
+		this.distance += distance;
+	}
+	
+	public void drive(double distance, boolean immediateReturn){
+		motor.stop();
+		int deg = (int)((gearRatio*distance*360)/this.wheelCircumfence);
+		motor.rotate(deg, immediateReturn);
+		this.distance += distance;
+	}
+	
+	public void driveToDistance(int distance, boolean immediateReturn){
+		int delta = this.distance - distance;
+		drive(delta, immediateReturn);
+		
+	}
+	
+	
 	public void calibrateYPos(){
 		light.setLow(145);
 		light.setHigh(890);
@@ -47,9 +69,16 @@ public class RobotWheels {
 			while(light.getLightValue() < VALUE_FOR_LIGHT_SENSOR){
 			}
 			motor.stop();
-			drive(10);
-			calibrateYPos();
-		}else{
+			drive(50);
+			
+			motor.backward();
+			while(light.getLightValue() >= VALUE_FOR_LIGHT_SENSOR){
+			}
+			motor.stop();
+		
+		
+		}
+		else{
 			motor.backward();
 			while(light.getLightValue() >= VALUE_FOR_LIGHT_SENSOR){
 			}

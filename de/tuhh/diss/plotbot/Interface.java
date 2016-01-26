@@ -47,7 +47,7 @@ public class Interface {
 	 * @return size
 	 */
 	public int selectSize(){
-		int size = 50;
+		int size = 65;
 		LCD.clear();
 		LCD.drawString("Select Size!(mm)", 0, 0);
 		LCD.drawString("Right -> +", 0, 1);
@@ -56,11 +56,11 @@ public class Interface {
 		LCD.drawString("Size = ", 0, 5);
 		while (!Button.ENTER.isDown()){
 			while(Button.RIGHT.isDown()){
-				size+=1;
+				size+=5;
 				showInt(size);
 			}
 			while(Button.LEFT.isDown()){
-				size-=1;
+				size-=5;
 				showInt(size);
 			}
 			if(Button.ESCAPE.isDown()){

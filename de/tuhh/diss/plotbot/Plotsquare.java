@@ -4,7 +4,7 @@ import lejos.nxt.Motor;
 
 public class Plotsquare {
 	public static final int edge = 230;
-	public static final int offset = 35; // Distance from pen to light sensor
+	public static final int offset = 25; // Distance from pen to light sensor
 	public static final int speedMotorC = 450;
 	public int size;
 	
@@ -16,6 +16,7 @@ public class Plotsquare {
 	Plotline square = new Plotline();
 
 	public void plotSquare(int size) {
+
 		square.lineInX(-this.size);
 		square.lineInY(-this.size);
 		square.lineInX(this.size);
@@ -34,7 +35,7 @@ public class Plotsquare {
 		
 		Plotbot.wheelMotor.setSpeed(speedMotorC);
 		Plotbot.robotWheels.drive(edge + offset + (int) Transform.distYbyX(angle)); 
-		// 35 is offset from pen and light sensor + more offset due to angled arm
+		// 25 is offset from pen and light sensor + more offset due to angled arm
 	}*/
 	
 	public void plot() {

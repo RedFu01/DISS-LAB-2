@@ -12,7 +12,7 @@ public class Plotline {
 
 		Plotbot.wheelMotor.setSpeed(speedMotorC);
 		Plotbot.pen.down();
-		Plotbot.robotWheels.driveToDistance(lineLengthY);
+		Plotbot.robotWheels.drive(lineLengthY);
 		Plotbot.pen.up();
 
 	}
@@ -118,6 +118,9 @@ public class Plotline {
 		float omegaC = 0;
 		int tetha = 0;
 		
+		int Position1 = 0;
+		int Position2 = 0;
+		
 		angledb = Transform.sweepAngle(lineLengthX); // angle in 'double' type
 		int angle = (int) Math.round(angledb); // angle in 'int' type
 
@@ -128,11 +131,46 @@ public class Plotline {
 		Plotbot.robotArm.moveTo(angle);
 		Plotbot.pen.down();
 		
-		while(!Plotbot.armSensor.isPressed()) {
+		double distance = 0;
+		
+		int position = 0;
+		
+		position = Plotbot.robotArm.getPosition();
+		Plotbot.robotArm.moveTo(-position, true);
+		//while(!Plotbot.armSensor.isPressed()) {
+		int position1 = Plotbot.robotArm.getPosition();
+		while (Math.abs(Plotbot.robotArm.getPosition() + position)>5) {
 			
-			Plotbot.robotArm.moveTo(-Plotbot.robotArm.getPosition(), true);
+			if (distance != 0){
+				position1 = Plotbot.robotArm.getPosition();
+			}
 			
-			tetha = angle;
+			try {
+				Thread.sleep(300);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Plotbot.robotWheels.setSpeed(300);
+			int position2 = Plotbot.robotArm.getPosition();
+			distance = Transform.accmomodateArc(position1, position2);
+			
+			LCD.drawString("-" + distance, 0, 1);
+			
+			Plotbot.robotWheels.drive(-distance, true);
+			
+		}
+			//Plotbot.robotArm.moveTo(0, true);
+			
+			
+			//Plotbot.robotWheels.drive(-distance);
+			
+			
+			
+			
+			//Plotbot.robotWheels.drive(distance);
+			
+			/*tetha = angle;
 			// right to left plot
 			if (angle > 0) {
 				while (tetha >= -angle && tetha <= angle) {
@@ -188,9 +226,11 @@ public class Plotline {
 				}
 				Plotbot.wheelMotor.stop();
 				Plotbot.pen.up();
-			}
-		}
-		Plotbot.wheelMotor.stop();
+			}*/
+		//}
+		//Plotbot.wheelMotor.stop();
 		Plotbot.pen.up();
+		
+		
 	}
 }

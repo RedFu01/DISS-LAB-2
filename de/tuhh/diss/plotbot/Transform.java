@@ -19,6 +19,8 @@ public class Transform {
 		return (80.0 - 80.0 * Math.cos(Math.toRadians(angle)));
 	}
 	
+	
+	
 	public static double wheelDistance(double angle) {
 		return ( angle * WHEELCIRCUMFERENCE ) / ( 360 * GEARRATIOC );
 	}
@@ -39,11 +41,11 @@ public class Transform {
 	}
 
 	public static double borderWidth(double textSize) {
-		return 2 * edgeGap(textSize) + 3 * textGap(textSize) + 4 * textWidth(textSize);
+		return ((4 * edgeGap(textSize)) + (3 * textGap(textSize)) + (4 * textWidth(textSize)));
 	}
 
 	public static double textWidth(double textSize) {
-		return 0.7 * textSize;
+		return 0.5 * textSize;
 	}
 
 	public static double edgeGap(double textSize) {
@@ -69,5 +71,9 @@ public class Transform {
 	
 	public static double shiftPosition(double textSize) {
 		return (ARM2PEN * Math.cos(Math.toRadians(beta(textSize)))) - (ARM2PEN * Math.cos(Math.toRadians(alpha(textSize))));
+	}
+	
+	public static double accmomodateArc(double angle1, double angle2) {
+		return (ARM2PEN * Math.cos(Math.toRadians(angle2))) - (ARM2PEN * Math.cos(Math.toRadians(angle1)));
 	}
 }

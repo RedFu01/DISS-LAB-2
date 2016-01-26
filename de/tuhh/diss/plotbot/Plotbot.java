@@ -68,6 +68,7 @@ public class Plotbot {
 				Plotsquare plotSqr = new Plotsquare(size);
 				plotSqr.plot();
 			}
+			done();
 		}else{
 			LCD.drawString("calibration:", 0, 0);
 			LCD.drawString("failed!", 0, 1);
@@ -76,6 +77,11 @@ public class Plotbot {
 
 		
 		}
+	}
+	public static void done(){
+		robotArm.moveTo(0);
+		pen.down();
+		
 	}
 }
 
