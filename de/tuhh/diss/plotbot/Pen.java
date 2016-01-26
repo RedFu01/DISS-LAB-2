@@ -57,23 +57,18 @@ public class Pen {
 		up();
 		penMotor.resetTachoCount();
 		penMotor.backward();
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		while(penSensor.isPressed()){
+			
 		}
 		while(!penSensor.isPressed()){
 			
 		}
 		penMotor.stop();
 		HEIGHT = penMotor.getTachoCount()/2;
-		LCD.drawString(""+HEIGHT,0,4);
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+		penMotor.forward();
+		while(penSensor.isPressed()){
+			
 		}
 		up();
 		calibrated = true;
