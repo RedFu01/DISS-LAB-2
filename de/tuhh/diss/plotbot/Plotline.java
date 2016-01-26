@@ -114,9 +114,9 @@ public class Plotline {
 /* ------------------------------------------------ ALTERNATIVE 3 ------------------------------------------------ */	
 
 	public void lineInX(int lineLengthX) {
-		double angledb;
-		float omegaC;
-		int tetha;
+		double angledb = 0;
+		float omegaC = 0;
+		int tetha = 0;
 		
 		angledb = Transform.sweepAngle(lineLengthX); // angle in 'double' type
 		int angle = (int) Math.round(angledb); // angle in 'int' type
@@ -128,7 +128,6 @@ public class Plotline {
 		Plotbot.robotArm.moveTo(angle);
 		Plotbot.pen.down();
 		
-		Plotbot.armMotor.resetTachoCount();
 		while(!Plotbot.armSensor.isPressed()) {
 			
 			Plotbot.robotArm.moveTo(-Plotbot.robotArm.getPosition(), true);
@@ -137,7 +136,8 @@ public class Plotline {
 			// right to left plot
 			if (angle > 0) {
 				while (tetha >= -angle && tetha <= angle) {
-					omegaC = (float) Math.round(Transform.altOmegaMotorC(Math.abs(tetha), Plotbot.armMotor.getSpeed()));
+					// omegaC = (float) Math.round(Transform.altOmegaMotorC(Math.abs(tetha), Plotbot.armMotor.getSpeed()));
+					omegaC = 250;
 					Plotbot.wheelMotor.setSpeed(omegaC);
 					if (tetha >= 0) {
 						Plotbot.wheelMotor.backward();	
@@ -157,10 +157,6 @@ public class Plotline {
 					}
 					
 					Plotbot.wheelMotor.stop();
-					
-					if (tetha == 0) {
-						Plotbot.armMotor.resetTachoCount();
-					}
 				}
 				Plotbot.wheelMotor.stop();
 				Plotbot.pen.up();
@@ -169,7 +165,8 @@ public class Plotline {
 			// left to right plot
 			else {
 				while (tetha <= -angle && tetha >= angle) {
-					omegaC = (float) Math.round(Transform.altOmegaMotorC(Math.abs(tetha), Plotbot.armMotor.getSpeed()));
+					// omegaC = (float) Math.round(Transform.altOmegaMotorC(Math.abs(tetha), Plotbot.armMotor.getSpeed()));
+					omegaC = 250;
 					Plotbot.wheelMotor.setSpeed(omegaC);
 					if (tetha <= 0) {
 						Plotbot.wheelMotor.backward();	
@@ -188,10 +185,6 @@ public class Plotline {
 					}
 					
 					Plotbot.wheelMotor.stop();
-					
-					if (tetha == 0) {
-						Plotbot.armMotor.resetTachoCount();
-					}
 				}
 				Plotbot.wheelMotor.stop();
 				Plotbot.pen.up();
