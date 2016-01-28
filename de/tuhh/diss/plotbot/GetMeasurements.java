@@ -6,9 +6,11 @@ import lejos.nxt.Motor;
 
 public class GetMeasurements {
 /**
- * start(): 'main'-program for the measurements. starts all subroutines
- * the values acquired are used to calculate the boundaries of the robot  
+ * start(): program for the measurements. starts all subroutines
+ * the values acquired are used to calculate the boundaries of the robot 
+ * to include in Plotbot-Class, set (boolean) Plotbot.calibration=true!!  
  * @param ARM_GEAR_RATIO
+ * @return void
  */
 	public static void start(int ARM_GEAR_RATIO){
 		
@@ -29,7 +31,6 @@ public class GetMeasurements {
 		RobotArm arm = new RobotArm(Plotbot.armSensor, Plotbot.armMotor,ARM_GEAR_RATIO);
 		int angleArm=0;
 		
-		//Measuring the arm!
 		LCD.drawString("measure Arm?", 0, 0);
 		if(Button.ENTER.isDown()){
 			LCD.clear();
@@ -55,7 +56,9 @@ public class GetMeasurements {
 	}
 	
 	/**
-	 * measurePen(): used to measure the angle the pen-motor has to rotate such as the pen is lifted/put down, to minimize the time it needs.
+	 * measurePen(): used to measure the angle the pen-motor has to rotate such as the pen is lifted/put down, 
+	 * to minimize the time it needs.
+	 * @param void
 	 * @return anglePen: angle the pen-motor needs to rotate
 	 */
 	private static int measurePen(){
@@ -89,30 +92,32 @@ public class GetMeasurements {
 		return anglePen;
 	}
 
-/**
- * getLightAndDark(): puts the value for the dark and the light field in a vector  
- * @return values[2]: includes the value of the dark space and the light space 
- */
+	/**
+	 * getLightAndDark(): puts the value for the dark and the light field in a vector  
+	 * @param void
+	 * @return values[2]: includes the value of the dark space and the light space 
+	 */
 	private static int[] getLightAndDark(){
 		int[] values = new int[2];
 		LCD.clear();
 		LCD.drawString("place on white", 0, 0);
 		Button.ENTER.waitForPressAndRelease();
-		values[0]=getLightValues();
+		values[0]=getLightSensorValue();
 		
 		LCD.clear();
 		LCD.drawString("place on black", 0, 0);
 		Button.ENTER.waitForPressAndRelease();
-		values[1]=getLightValues();
+		values[1]=getLightSensorValue();
 		LCD.clear();
 		return values;
 	}
 	
 	/**
-	 * getLightValue(): reads the value provided by the light sensor
+	 * getLightSensorValue(): reads the value provided by the light sensor
+	 * @param void
 	 * @return value of the light sensor
 	 */
-	private static int getLightValues(){
+	private static int getLightSensorValue(){
 		RobotWheels rWs = new RobotWheels(Plotbot.wheelsSensor, Plotbot.wheelMotor,1,10);
 		return rWs.light.getLightValue();
 	}
@@ -123,6 +128,7 @@ public class GetMeasurements {
 	 * @param anglePen
 	 * @param lightValue
 	 * @param darkValue
+	 * @return void
 	 * 
 	 */
 	private static void showValues(int angleArm, int anglePen, int lightValue, int darkValue){
@@ -142,6 +148,6 @@ public class GetMeasurements {
 		LCD.drawInt(darkValue, 3, 0, 7);
 		
 		Button.waitForAnyPress();
-	LCD.clear();
+		LCD.clear();
 	}
 }

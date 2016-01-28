@@ -1,18 +1,13 @@
-/**
- * 
- */
 package de.tuhh.diss.plotbot;
 
 import lejos.nxt.Button;
 import lejos.nxt.LCD;
 
-/**
- * @author Bjoern
- *
- */
 public class Interface {
 	/**
-	 * startUp(): greetings mask. shows the programm started
+	 * startUp(): greetings mask. shows the program started
+	 * @param void
+	 * @return void
 	 */
 	public void startUp(){
 		LCD.clear();
@@ -22,6 +17,7 @@ public class Interface {
 	
 	/**
 	 * selectShape(): user interaction to select the picture/shape that is to be drawn
+	 * @param void
 	 * @return shape
 	 */
 	public String selectShape(){
@@ -42,8 +38,10 @@ public class Interface {
 		LCD.clear();
 		return shape;
 	}
+	
 	/**
-	 * selectSize(): user interface to select the size of the picture/shape to be drawn
+	 * selectSize(): user interface to select the size of the picture/shape to be drawn	 
+	 * @param void
 	 * @return size
 	 */
 	public int selectSize(){
@@ -57,11 +55,11 @@ public class Interface {
 		while (!Button.ENTER.isDown()){
 			while(Button.RIGHT.isDown()){
 				size+=5;
-				showInt(size);
+				showChoice(size);
 			}
 			while(Button.LEFT.isDown()){
 				size-=5;
-				showInt(size);
+				showChoice(size);
 			}
 			if(Button.ESCAPE.isDown()){
 				size = 0;
@@ -71,7 +69,7 @@ public class Interface {
 		LCD.drawInt(size, 0, 7, 3);
 		LCD.drawString("mm", 4, 7);
 		
-		if(size > 160){
+		if(size > 100 || size < 0){
 			LCD.clear();
 			LCD.drawString(" error in size! ", 0, 3);
 			LCD.drawString("...try again!...", 0, 4);
@@ -79,6 +77,7 @@ public class Interface {
 			Button.waitForAnyPress();
 			selectSize();
 		}
+		LCD.clear();
 		return (size);
 	}
 	
@@ -102,7 +101,7 @@ public class Interface {
 	 * @param int number
 	 * @return void 
 	 */
-	private void showInt(int number){
+	private void showChoice(int number){
 		LCD.clear();
 		LCD.drawString("Your choice:", 0, 6);
 		LCD.drawInt(number, 0, 7, 3);

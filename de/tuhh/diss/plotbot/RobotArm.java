@@ -1,15 +1,18 @@
 package de.tuhh.diss.plotbot;
 
-import lejos.nxt.SensorPort;
-import lejos.nxt.LCD;
-import lejos.nxt.Motor;
 import lejos.nxt.NXTRegulatedMotor;
 import lejos.nxt.TouchSensor;
 
+/**
+ * class RobotArm: methods and Sensor- & Motor-initialization for the arm
+ * @param TouchSensor sensor
+ * @param NXTRegulatedMotor motor
+ * @param int gearRatio
+ * @return void
+ */
 public class RobotArm {
 	private TouchSensor touchSensorArm = null;
 	private NXTRegulatedMotor motor = null;
-	private int position =0 ;
 	private int speed = 920;
 	private boolean calibrated = false;
 	private int sign = -1;
@@ -22,49 +25,93 @@ public class RobotArm {
 		this.motor = motor;
 	}
 	
+	/**
+	 * init():set position and motor.tacho-count to zero/ reset position counts 
+	 * @param void
+	 * @return void
+	 */
 	public void init(){
-		//TODO: move the arm to the default position;
 		motor.resetTachoCount();
 	}
 	
-	public void moveTo(int degree){
-		moveTo(degree, false);
+	/**
+	 * move(): rotate the ArmMotor with the desired speed and if desired, with immediate return
+	 * @param int degrees
+	 * @param boolean immediatReturn
+	 * @return void
+	 */
+	public void move(int degrees, boolean immediateReturn){
+		motor.setSpeed(speed);
+		motor.rotate(sign*degrees*gearRatio, immediateReturn);
 	}
 	
+	/**
+	 * move(): move function with integer input and set immediateReturn
+	 * @param int degree
+	 * @return void
+	 */
 	public void move(int degree){
 		move(degree, false);
 	}
 	
-	public void moveTo(int degree, boolean imideatReturn){
-		motor.setSpeed(speed);
-		
-		int degrees = this.getPosition() - degree;
-		motor.rotate(sign*degrees*gearRatio, imideatReturn);
-	}
-	public void move(int degrees, boolean imideatReturn){
-		motor.setSpeed(speed);
-		motor.rotate(sign*degrees*gearRatio, imideatReturn);
-		
-	}
-	
+	/**
+	 * move(): move function with double input and set immediateReturn
+	 * @param double degree
+	 * @return void
+	 */
 	public void move(double degrees){
 		move(degrees,false);
 	}
 	
-	public void move(double degrees, boolean imideatReturn){
+	/**
+	 * move(): rotate the ArmMotor with the desired speed and if desired, with immediate return 
+	 * @param double degrees
+	 * @param boolean immediatReturn
+	 * @return void
+	 */
+	public void move(double degrees, boolean immediatReturn){
 		motor.setSpeed(speed);
-		motor.rotate((int)(sign*degrees*gearRatio), imideatReturn);
-		
+		motor.rotate((int)(sign*degrees*gearRatio), immediatReturn);
 	}
 	
+	/**
+	 * moveTo(): move the motor to a certain position 
+	 * @param int degree
+	 * @param boolean immediateReturn
+	 * @return void
+	 */	
+	public void moveTo(int degree, boolean immediateReturn){
+		motor.setSpeed(speed);
+		
+		int degrees = this.getPosition() - degree;
+		motor.rotate(sign*degrees*gearRatio, immediateReturn);
+	}
+	
+	/**
+	 * moveTo(): moveTo function with set immediateReturn
+	 * @param degree
+	 * @return void
+	 */
+	public void moveTo(int degree){
+		moveTo(degree, false);
+	}
+	
+	
+	/**
+	 * getPosition(): get the position of the arm in degree
+	 * @param void
+	 * @return position
+	 */
 	public int getPosition(){
 		return (motor.getTachoCount() /gearRatio);
 	}
 	
 	/**
-	 * calibrateArm
-	 * @return position
-	 * @throws InterruptedException
+	 * calibrateArm(): calibration of the arm, 
+	 * 1. move to touchSensor
+	 * 2. rotate to center position
+	 * @param void
+	 * @return void
 	 */
 	public void calibrateArm(){
 		int saveSpeed=motor.getSpeed();
@@ -75,12 +122,16 @@ public class RobotArm {
 		}
 		motor.stop();
 		motor.rotate(startAngle);
-		this.position = 0;
 		init();
 		calibrated=true;
 		motor.setSpeed(saveSpeed);
 	}
 	
+	/**
+	 * getCalibrationStatus(): return calibration status
+	 * @param void
+	 * @return calibrated
+	 */
 	public boolean getCalibrationStatus(){
 		return calibrated;
 	}
