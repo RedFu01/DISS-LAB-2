@@ -94,6 +94,13 @@ public class Interface {
 		LCD.drawString("press button", 0, 8);
 		Button.waitForAnyPress();
 		LCD.clear();
+		
+		try {
+			Thread.sleep(50);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -108,5 +115,11 @@ public class Interface {
 		LCD.drawString("press button", 0, 8);
 		Button.waitForAnyPress();
 		LCD.clear();
+		try {
+			Thread.sleep(50);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

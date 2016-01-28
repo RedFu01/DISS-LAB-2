@@ -6,7 +6,7 @@ import lejos.nxt.LCD;
 
 public class Plotline {
 	
-	public static final int speedMotorC = 450; // Default speed
+	public static final int speedMotorC = 300; // Default speed
 
 	public void lineInY(int lineLengthY) {
 
@@ -118,8 +118,8 @@ public class Plotline {
 		float omegaC = 0;
 		int tetha = 0;
 		
-		int Position1 = 0;
-		int Position2 = 0;
+		int position1 = 0;
+		int position2 = 0;
 		
 		angledb = Transform.sweepAngle(lineLengthX); // angle in 'double' type
 		int angle = (int) Math.round(angledb); // angle in 'int' type
@@ -130,7 +130,7 @@ public class Plotline {
 		Plotbot.robotArm.moveTo(0); // Straight arm position
 		Plotbot.robotArm.moveTo(angle);
 		Plotbot.pen.down();
-		
+		Plotbot.robotArm.setSpeed(100);
 		double distance = 0;
 		
 		int position = 0;
@@ -138,27 +138,23 @@ public class Plotline {
 		position = Plotbot.robotArm.getPosition();
 		Plotbot.robotArm.moveTo(-position, true);
 		//while(!Plotbot.armSensor.isPressed()) {
-		int position1 = Plotbot.robotArm.getPosition();
-		while (Math.abs(Plotbot.robotArm.getPosition() + position)>5) {
-			
+		position1 = Plotbot.robotArm.getPosition();
+		while (Math.abs(Plotbot.robotArm.getPosition() + position)>1) {
 			if (distance != 0){
-				position1 = Plotbot.robotArm.getPosition();
+				position1 = position2;
 			}
 			
-			try {
-				Thread.sleep(300);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			Plotbot.robotWheels.setSpeed(300);
-			int position2 = Plotbot.robotArm.getPosition();
+
+			
+			Plotbot.robotWheels.setSpeed(960);
+			position2 = Plotbot.robotArm.getPosition();
 			distance = Transform.accmomodateArc(position1, position2);
 			
 			LCD.drawString("-" + distance, 0, 1);
-			
-			Plotbot.robotWheels.drive(-distance, true);
-			
+			if (position1 !=0 || position2 != 0){
+			Plotbot.robotWheels.drive(-distance);
+			}			
+			Plotbot.robotArm.resetSpeed();
 		}
 			//Plotbot.robotArm.moveTo(0, true);
 			

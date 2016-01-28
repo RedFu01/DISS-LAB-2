@@ -41,7 +41,7 @@ public class Transform {
 	}
 
 	public static double borderWidth(double textSize) {
-		return ((4 * edgeGap(textSize)) + (3 * textGap(textSize)) + (4 * textWidth(textSize)));
+		return ((2.8 * edgeGap(textSize)) + (3 * textGap(textSize)) + (4 * textWidth(textSize)));
 	}
 
 	public static double textWidth(double textSize) {

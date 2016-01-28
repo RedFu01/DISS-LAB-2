@@ -101,7 +101,7 @@ public class PlotTUHH {
 		
 		plotStringH(this.size);
 		
-		Plotbot.robotWheels.drive((int) Transform.wheelDistance(-100)); // Get out from the drawing field
+		Plotbot.robotWheels.drive(-50); // Get out from the drawing field
 	}
 
 }

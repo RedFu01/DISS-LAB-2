@@ -17,7 +17,7 @@ public class RobotArm {
 	private boolean calibrated = false;
 	private int sign = -1;
 	private int gearRatio = 1;
-	private int startAngle = 4900;
+	private int startAngle = 5100;
 	
 	public RobotArm(TouchSensor sensor, NXTRegulatedMotor motor, int gearRatio){
 		this.gearRatio = gearRatio;
@@ -32,6 +32,24 @@ public class RobotArm {
 	 */
 	public void init(){
 		motor.resetTachoCount();
+	}
+	
+	/**
+	 * setSpeed(): set the speed of the arms motor 
+	 * @param speed
+	 * @return void
+	 */
+	public void setSpeed(int speed){
+		motor.setSpeed(speed);
+	}
+	
+	/**
+	 * resetSpeed(): reset the speed of the arms motor to default value 
+	 * @param void
+	 * @return void
+	 */
+	public void resetSpeed(){
+		motor.setSpeed(speed);
 	}
 	
 	/**
