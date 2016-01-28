@@ -8,31 +8,14 @@ public class Transform {
 	public static final double GEARRATIOA = 84.0;
 	public static final double GEARRATIOC = 5.0;
 
-	// Angle from input size, for square max ~113 mm and for TUHH string max ~79 mm
+	// Calculate angle from input size, for square max ~113 mm and for TUHH string max ~79 mm
 	public static double sweepAngle(double size) {
 		return Math.toDegrees(Math.asin(size / (2 * ARM2PEN))); // in degrees and mm
 	}
 	
-	// Movement in Y-axis to accommodate drawing in X-axis
-	// Synchronization based on same time to reach mid point
+	// Movement in Y-axis to accommodate angled arm position
 	public static double offsetYdueToX(double angle) {
 		return (80.0 - 80.0 * Math.cos(Math.toRadians(angle)));
-	}
-	
-	
-	
-	public static double wheelDistance(double angle) {
-		return ( angle * WHEELCIRCUMFERENCE ) / ( 360 * GEARRATIOC );
-	}
-
-	// Motor C depends and synchronizes to Motor A
-	public static double omegaMotorC(double angle, double omegaMotorA) {
-		return ((1.0 - Math.cos(Math.toRadians(angle))) / Math.sin(Math.toRadians(angle))) * (GEARRATIOC / GEARRATIOA) * (ARM2PEN / WHEELRADIUS) * omegaMotorA;
-	}
-	
-	// Motor C depends and synchronizes to Motor A, alternative
-	public static double altOmegaMotorC(double angle, double omegaMotorA) {
-		return ((GEARRATIOC / GEARRATIOA) * (ARM2PEN / WHEELRADIUS) * omegaMotorA * Math.sin(Math.toRadians(angle)));
 	}
 
 	// TUHH string plotting dimensions
@@ -73,6 +56,7 @@ public class Transform {
 		return (ARM2PEN * Math.cos(Math.toRadians(beta(textSize)))) - (ARM2PEN * Math.cos(Math.toRadians(alpha(textSize))));
 	}
 	
+	// Calculate the distance required to make a straight line due to arc movement
 	public static double accmomodateArc(double angle1, double angle2) {
 		return (ARM2PEN * Math.cos(Math.toRadians(angle2))) - (ARM2PEN * Math.cos(Math.toRadians(angle1)));
 	}
